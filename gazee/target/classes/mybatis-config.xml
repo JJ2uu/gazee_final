@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+	    <setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+<!-- SQL문 정의할 때 VO표현을 간단하게 하고 싶은 경우. 
+     별명을 지어서 사용 -->
+   <typeAliases>
+       <typeAlias type="com.multi.gazee.chat.ChatVO" alias="chatVO"></typeAlias>
+       <typeAlias type="com.multi.gazee.chat.ChatAndProductVO" alias="chatNproductVO"></typeAlias>
+       <typeAlias type="com.multi.gazee.product.ProductVO" alias="productVO"></typeAlias>
+       <typeAlias type="com.multi.gazee.member.MemberVO" alias="memberVO"/>
+   </typeAliases>
+   <mappers>
+   <!-- SQL문 정의하는 파일들의 목록을 지정. -->
+   <mapper resource="mapper/chatMapper.xml" />
+   <mapper resource="mapper/productMapper.xml" />
+   <mapper resource="mapper/memberMapper.xml"/>
+   </mappers>
+</configuration>

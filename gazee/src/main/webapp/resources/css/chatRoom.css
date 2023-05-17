@@ -1,0 +1,372 @@
+@charset "UTF-8";
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 채팅창 div */
+.chat {
+	box-sizing: border-box;
+	background-color: transparent;
+	width: 1000px;
+	height: 560px;
+	border: 1px solid #D8D8D8;
+	display: flex;
+	flex-flow: row;
+	position: relative;
+}
+
+/* 채팅logo */
+#chatIcon {
+	display: flex;
+	align-items: center;
+}
+
+/* 채팅목록 div */
+.chatList_wrap {
+	width: 250px;
+	padding: 0;
+	border-right: 1px solid #D8D8D8;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+/* 채팅목록 ul */
+.myChatList {
+	list-style: none;
+	padding: 0 0 100px 0;
+	margin: 0;
+	text-align: left;
+	color: #595959;
+}
+
+/* 목록 각각의 div */
+.chatList {
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+    border-bottom: 1px solid #D8D8D8;
+    padding: 25px 20px;
+    justify-content: space-between;
+}
+
+/* 채팅방 나가기 버튼 */
+.roomDelete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 10px;
+}
+
+/* 채팅상대 프로필 */
+.chatPartnerProfile {
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	background-image: url("../img/person.svg");
+	background-repeat: no-repeat;
+	background-size: 30px;
+    background-position: center center;
+	background-color: #d9d9d9;
+}
+
+/* 최근 메세지 시간 */
+.recentMessageDate {
+	text-align: right;
+	font-size: 14px;
+	color: #bdbdbd;
+}
+
+/* 채팅상대 아이디 span */
+.chatRoomName {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* 목록의 최근 메세지 p태그 */
+.recentMessage {
+	margin: 5px 0 0 0;
+	opacity: 0.9;
+	font-size: 14px;
+	overflow: hidden;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+..myChatList > li {
+	background-color: #fff;
+	border-bottom: 1px solid #D8D8D8;
+}
+
+/* 현재 채팅방 div */
+.chatRoomEntry {
+	width: 750px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+}
+
+/* 현재 채팅방 채팅 공간 */
+.chatArea {
+	flex: 1;
+	display: flex;
+	flex-flow: column;
+	position: relative;
+	padding: 10px 20px 20px 20px;
+	overflow-y: auto;
+	background-color: #fff;
+}
+
+/* 현재 채팅방 헤더 */
+.chatRoomHeader {
+	padding: 20px 40px;
+	background-color: #fff;
+	opacity: 0.9;
+	border-bottom: 1px solid #D8D8D8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* 채팅 입력 div */
+.chatWrite_wrap {
+	padding: 20px;
+	display: flex;
+	flex-flow: row;
+	background-color: #fff;
+}
+
+/* 채팅 입력 textarea div */
+#inp_chatArea {
+	width: 90%;
+	border: 1px solid #D8D8D8;
+	padding: 10px 20px;
+}
+
+/* 채팅 입력 textarea */
+#chatMessageText {
+	width: 100%;
+	height: 24px;
+	overflow: auto;
+	border: none;
+	outline: none;
+	resize: none;
+	padding: 0;
+	font-size: 15px;
+}
+
+/* 전송 버튼 div */
+#btn_chatSubmit {
+	width: 10%;
+}
+
+/* 채팅 전송 버튼 */
+#btn_chatSubmit>button {
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	background-color: #693FAA;
+	color: #fff;
+	border-color: transparent;
+}
+
+/* 채팅방 제목 div */
+.chatRoomTitle_wrap {
+	width: 150px;
+	text-align: left;
+	display: flex;
+	flex-flow: column;
+}
+
+/* 구매 상품 */
+#productTitle {
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	write-space: nowrap;
+}
+
+/* 상품 썸네일 */
+.productThumbnail {
+	width: 60px;
+	height: 50px;
+	border-radius: 0 0 10px 10px;
+	background-color: #d9d9d9;
+}
+
+/* 채팅상대 */
+#chatPartner {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+/* 거래방식 div */
+#transaction {
+	width: 90px;
+	height: 50px;
+	background: #FFFFFF;
+	border: 1px solid #D8D8D8;
+	border-radius: 39px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 거래방식 div text */
+#transaction>span {
+	color: #808080;
+	font-size: 15px;
+}
+
+/* 판매하기 버튼 */
+#btn_sell>button {
+	cursor: pointer;
+	width: 110px;
+	height: 50px;
+	background: #693FAA;
+	border-color: transparent;
+	color: #fff;
+	font-size: 15px;
+	border-radius: 39px;
+}
+
+/* 채팅 로그 div */
+.chatLog {
+	padding: 0 20px;
+}
+
+/* 상대방 채팅 */
+.chat_partner {
+	width: 100%;
+	display: flex;
+	align-content: flex-start;
+	align-items: center;
+}
+
+.chat_partner > div:nth-child(2) {
+	max-width: 400px;
+	word-wrap: break-word;
+	background: #F2F2F2;
+	border-radius: 5px;
+	padding: 15px 20px;
+	text-align: left;
+}
+
+/* 내 채팅 */
+.chat_me {
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.chat_me > div:nth-child(1) {
+	max-width: 400px;
+	word-wrap: break-word;
+	background: #FAF0FF;
+	border-radius: 5px;
+	padding: 15px 20px;
+	text-align: left;
+}
+
+/* 메세지 margin */
+.message {
+	margin-top: 20px;
+	gap: 10px;
+}
+
+/* 메세지 시간 */
+.messageTime {
+	font-size: 12px;
+	color: #bdbdbd;
+	margin-top: auto;
+}
+
+/* 거래 상태 */
+#status {
+	font-size: 12px;
+	background-color: #404040;
+	color: #fff;
+	padding: 3px;
+	border-radius: 10px 10px 0 0;
+}
+
+/* 거래 날짜, 시간 잡는 input */
+#transactionDate {
+	 padding: 5px 10px 10px 10px;
+	 posision: absolute;
+	 border: 1px solid #d8d8d8;
+	 border-radius: 10px 0 0 10px;
+	 position: absolute;
+	 background: #fff;
+	 left: 500px;
+	 top: 130px;
+	 z-index: 1;
+	 box-shadow: 5px 5px 7px 0px #d7d7d763;
+}
+
+#btn_transactionDate {
+	cursor: pointer;
+    position: absolute;
+    border-radius: 0 10px 10px 0;
+    top: 130px;
+    left: 690px;
+    z-index: 2;
+    height: 40px;
+    border:  none;
+    background: #693FAA;
+    color: #fff;
+    padding: 1px 11px 3px 10px;
+    font-size: 12px;
+}
+
+/* 토글 메뉴 */
+.menu-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+/* 토글 메뉴 - 드롭 다운 메뉴 */
+#toggle_menu_list {
+	background-color: #fff;
+	border: 1px solid #d8d8d8;
+	border-radius: 10px;
+	margin: 0px;
+	position: absolute;
+	z-index: 2;
+	top: 80px;
+	left: 840px;
+	display: none;
+	list-style: none;
+	padding: 0;
+	box-shadow: 6px 10px 10px 0px #d7d7d763
+}
+
+#toggle_menu_list > li {
+	padding: 10px;
+	cursor: pointer;
+}
+
+#toggle_menu_list > li:hover {
+	background-color: #f7f7f7;
+	transition: 0.5s;
+}
+
+/* 결제요청 채팅 div */
+#paymentMessage_wrap {
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
+}
+
+#btn_payment {
+	border: none;
+	cursor: pointer;
+	background: #693FAA;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
