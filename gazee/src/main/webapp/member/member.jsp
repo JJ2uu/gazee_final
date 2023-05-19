@@ -79,7 +79,7 @@ div {
 
 	<h3 class="container" style="color: #6f42c1">로그인 화면입니다.</h3>
 	<hr color="#6f42c1">
-	<img src="../resources/img/gazee_logo.png" style="width: 300px" height="100">
+	<img src="../resources/img/gazee_logo.svg" style="width: 300px" height="100">
 	
 
 		<div class="container">

@@ -7,8 +7,8 @@ public class ChatVO {
 	private String sellerId;
 	private String buyerId;
 	private int productId;
-	private String transaction;
-	private Timestamp trasactionDate;
+	private String dealType;
+	private Timestamp dealDirectDate;
 	private Timestamp lastMessageDate;
 	
 	// 출력용 변수
@@ -46,17 +46,19 @@ public class ChatVO {
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-	public String getTransaction() {
-		return transaction;
+	
+	public String getDealType() {
+		return dealType;
 	}
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
+	public void setDealType(String dealType) {
+		this.dealType = dealType;
 	}
-	public Timestamp getTrasactionDate() {
-		return trasactionDate;
+	
+	public Timestamp getDealDirectDate() {
+		return dealDirectDate;
 	}
-	public void setTrasactionDate(Timestamp trasactionDate) {
-		this.trasactionDate = trasactionDate;
+	public void setDealDirectDate(Timestamp dealDirectDate) {
+		this.dealDirectDate = dealDirectDate;
 	}
 	public String getLastMessage() {
 		return lastMessage;
@@ -79,8 +81,8 @@ public class ChatVO {
 	@Override
 	public String toString() {
 		return "ChatVO [roomId=" + roomId + ", sellerId=" + sellerId + ", buyerId=" + buyerId + ", productId="
-				+ productId + ", transaction=" + transaction + ", trasactionDate=" + trasactionDate
-				+ ", lastMessageDate=" + lastMessageDate + ", chatPartner=" + chatPartner + ", lastMessage="
-				+ lastMessage + ", lastMessageTime=" + lastMessageTime + "]";
+				+ productId + ", dealType=" + dealType + ", dealDirectDate=" + dealDirectDate + ", lastMessageDate="
+				+ lastMessageDate + ", chatPartner=" + chatPartner + ", lastMessage=" + lastMessage
+				+ ", lastMessageTime=" + lastMessageTime + "]";
 	}
 }

@@ -47,4 +47,15 @@ public class ChatDAO {
 		return bag;
 	}
 	
+	public int lastMessageTimeUpdate(ChatVO bag) {
+		System.out.println(bag);
+		int result = my.update("chat.update", bag);
+		return result;
+	}
+	
+	public int roomLeave(int roomId) {
+		int result = my.delete("chat.roomLeave", roomId);
+		return result;
+	}
+	
 }

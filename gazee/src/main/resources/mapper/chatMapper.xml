@@ -3,8 +3,12 @@
 <mapper namespace="chat">
 	
 	<insert id="create" parameterType="chatVO" useGeneratedKeys="true" keyProperty="roomId">
-		insert into chat values (null, #{productId}, #{sellerId}, #{buyerId}, #{transaction}, null, null);
+		insert into chat values (null, #{productId}, #{sellerId}, #{buyerId}, #{dealType}, null, null);
 	</insert>
+	
+	<update id="update" parameterType="chatVO">
+		update chat set last_message_time = #{lastMessageDate} where room_id = ${roomId}
+	</update>
 	
 	<select id="chatRoomSearch" parameterType="chatVO" resultType="chatVO">
 		select * from chat where buyer_id = #{buyerId} AND product_id = #{productId}
@@ -12,12 +16,16 @@
 	
 	<select id="chatList" parameterType="String" resultType="chatVO">
 		select * from chat inner join product on chat.product_id = product.product_id
-		where chat.buyer_id = #{memberId} OR product.member_id = #{memberId};
+		where chat.buyer_id = #{memberId} OR product.member_id = #{memberId} order by last_message_time;
 	</select>
 	
 	<select id="chatRoomEntry" parameterType="Integer" resultType="chatNproductVO">
 		select c.*, p.product_name, p.price, p.member_id from product p left join chat c on p.product_id = c.product_id where c.room_id = #{roomId};
 	</select>
+	
+	<delete id="roomLeave" parameterType="Integer">
+		delete from chat where room_id = #{roomId}
+	</delete>
 	
 </mapper>
 

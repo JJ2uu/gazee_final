@@ -8,19 +8,11 @@ public class ChatAndProductVO {
 	private String sellerId;
 	private String buyerId;
 	private int productId;
-	private String transaction;
-	private Timestamp trasactionDate;
+	private String dealType;
+	private Timestamp dealDirectDate;
 	private String productName;
 	private int price;
-	private String memberId;
-	private String priceDec;
 	
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
 	public int getRoomId() {
 		return roomId;
 	}
@@ -45,17 +37,19 @@ public class ChatAndProductVO {
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-	public String getTransaction() {
-		return transaction;
+	
+	public String getDealType() {
+		return dealType;
 	}
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
+	public void setDealType(String dealType) {
+		this.dealType = dealType;
 	}
-	public Timestamp getTrasactionDate() {
-		return trasactionDate;
+	
+	public Timestamp getDealDirectDate() {
+		return dealDirectDate;
 	}
-	public void setTrasactionDate(Timestamp trasactionDate) {
-		this.trasactionDate = trasactionDate;
+	public void setDealDirectDate(Timestamp dealDirectDate) {
+		this.dealDirectDate = dealDirectDate;
 	}
 	public String getProductName() {
 		return productName;
@@ -69,16 +63,10 @@ public class ChatAndProductVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getPriceDec() {
-		return priceDec;
-	}
-	public void setPriceDec(String priceDec) {
-		this.priceDec = priceDec;
-	}
 	@Override
 	public String toString() {
 		return "ChatAndProductVO [roomId=" + roomId + ", sellerId=" + sellerId + ", buyerId=" + buyerId + ", productId="
-				+ productId + ", transaction=" + transaction + ", trasactionDate=" + trasactionDate + ", productName="
-				+ productName + ", price=" + price + ", memberId=" + memberId + ", priceDec=" + priceDec + "]";
+				+ productId + ", dealType=" + dealType + ", dealDirectDate=" + dealDirectDate + ", productName="
+				+ productName + ", price=" + price + "]";
 	}
 }

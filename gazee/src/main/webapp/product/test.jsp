@@ -7,7 +7,6 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
-<script type="text/javascript" src="../resources/js/webSocketSendToUserApp.js"></script>
 <script type="text/javascript">
 	$(function() {
 		
@@ -27,10 +26,10 @@
 		$('#b1').click(function() {
 			productId = $('#productId').val();
 			buyerId = $('#sender').val();
-			transaction = $('#transaction').val();
+			dealType = $('#dealType').val();
 			console.log(productId)
 			console.log(buyerId)
-			console.log(transaction)
+			console.log(dealType)
 			
 			
 			$.ajax({
@@ -38,12 +37,12 @@
 				data: {
 					productId : productId,
 					buyerId : buyerId,
-					transaction : transaction
+					dealType : dealType
 				},
 				success : function(roomId) {
 					/* 해당 상품에 대한 채팅방이 이미 있는 경우 */
 					if (roomId != 0) {
-						location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&transaction="+transaction;
+						location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
 					} else {
 						/* 방이 없는 경우 */
 						$.ajax({
@@ -51,11 +50,11 @@
 							data : {
 								ProductId : productId,
 								buyerId : buyerId,
-								transaction : transaction
+								dealType : dealType
 							}, success : function(roomId) {
 								console.log(roomId)
 								if (roomId != 0) {
-									location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&transaction="+transaction;
+									location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
 								} else {
 									alert('실패')
 								}
@@ -74,7 +73,7 @@
 <body>
 상품아이디:<input id="productId"><br>
 구매자아이디:<input id="sender"><br>
-거래방식선택:<input id="transaction"><br>
+거래방식선택:<input id="dealType"><br>
 <button id="b1">채팅하기</button>
 <button id="b2">내 채팅목록</button>
 </body>

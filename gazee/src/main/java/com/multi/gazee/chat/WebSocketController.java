@@ -27,7 +27,7 @@ public class WebSocketController {
 		output.setRoomId(roomId);
 		output.setSender(message.getSender());
 		output.setContent(message.getContent());
-		SimpleDateFormat simple2 = new SimpleDateFormat("hh:mm");
+		SimpleDateFormat simple2 = new SimpleDateFormat("HH:mm");
 		output.setTime(simple2.format(new Timestamp(System.currentTimeMillis())));
 		return output;
 	}

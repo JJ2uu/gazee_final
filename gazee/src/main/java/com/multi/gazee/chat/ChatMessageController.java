@@ -1,6 +1,10 @@
 package com.multi.gazee.chat;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,9 @@ public class ChatMessageController {
 
 	@Autowired
 	ChatMessageDAO dao;
+	
+	@Autowired
+	ChatDAO dao2;
 	
 	@RequestMapping("chat/chatMessageList")
 	@ResponseBody
@@ -25,5 +32,29 @@ public class ChatMessageController {
 	public ChatMessageVO lastMeesage(int roomId) {
 		ChatMessageVO bag = dao.lastMessageList(roomId);
 		return bag;
+	}
+	
+	@RequestMapping("chat/lastMessageTimeUpdate")
+	@ResponseBody
+	public int lastMessageTimeUpdate(int roomId) {
+		ChatMessageVO bag = dao.lastMessageList(roomId);
+		if (bag != null) {
+			ChatVO bag2 = new ChatVO();
+			Date date = new Date(bag.getDate().getTime() * 1000L);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String timestamp = format.format(date);
+			try {
+				Date date2 = format.parse(timestamp);
+				Timestamp timestamp2 = new Timestamp(date2.getTime());
+				bag2.setRoomId(roomId);
+				bag2.setLastMessageDate(timestamp2);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			int result = dao2.lastMessageTimeUpdate(bag2);
+			return result;
+		} else {
+			return 0;
+		}
 	}
 }

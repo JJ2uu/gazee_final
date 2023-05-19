@@ -32,7 +32,7 @@ public class ChatMessageDAO {
 	
 	public ArrayList<ChatMessageVO> list(int roomId) {
 		Query query = new Query(new Criteria("roomId").is(roomId)).limit(20);
-		query.with(new Sort(Sort.Direction.DESC, "time"));
+		query.with(new Sort(Sort.Direction.DESC, "date"));
 		List<ChatMessageVO> list = mongo.find(query, ChatMessageVO.class, "chat_logs");
 		ArrayList<ChatMessageVO> arrList = new ArrayList<ChatMessageVO>();
 		for (ChatMessageVO x : list) {
@@ -47,13 +47,13 @@ public class ChatMessageDAO {
 			bag.setTime(time);
 			arrList.add(bag);
 		}
-		
+		Collections.reverse(arrList);
 		return arrList;
 	}
 	
 	public ChatMessageVO lastMessageList(int roomId) {
 		Query query = new Query(new Criteria("roomId").is(roomId)).limit(1);
-		query.with(new Sort(Sort.Direction.DESC, "time"));
+		query.with(new Sort(Sort.Direction.DESC, "date"));
 		ChatMessageVO bag = mongo.findOne(query, ChatMessageVO.class, "chat_logs");
 		return bag;
 	}

@@ -22,15 +22,15 @@
 					</div>
 				</div>
 				<div style="display: flex; align-items: center; gap: 14px;">
-					<div id="transaction">
-						<span id="transactionText">${bag.transaction}</span>
+					<div id="dealType">
+						<span>${bag.dealType}</span>
 					</div>
 					<div id="btn_sell">
 						<button>판매하기</button>
 					</div>
 					<div id="productPrice_wrap">
 						<div style="font-size: 26px; font-weight: bold; color: #000; margin: 0 5px;">
-							${bag.priceDec}원
+							${priceDec}원
 						</div>
 					</div>
 					<div id="btn_report_wrap" class="menu-trigger">
@@ -39,11 +39,11 @@
 				</div>
 			</div>
 			<%
-				String transaction = (String)request.getAttribute("transaction");
-				if(transaction.equals("직거래")) {
+				String dealType = (String)request.getAttribute("dealType");
+				if(dealType.equals("직거래")) {
 			%>
-				<button id="btn_transactionDate">입력</button>
-				<div id="transactionDate">
+				<button id="btn_dealDirectDate">입력</button>
+				<div id="dealDirectDate">
 					<input type="datetime-local" name="starttime" style="border: none; outline: none;">
 				</div>
 			<%
@@ -78,12 +78,12 @@
 					</div>
 				</div>
 				<div style="display: flex; align-items: center; gap: 14px;">
-					<div id="transaction">
-						<span id="transactionText">${bag.transaction}</span>
+					<div id="dealType">
+						<span>${bag.dealType}</span>
 					</div>
 					<div id="productPrice_wrap">
 						<div style="font-size: 26px; font-weight: bold; color: #000; margin: 0 5px;">
-							${bag.priceDec}원
+							${priceDec}원
 						</div>
 					</div>
 					<div id="btn_report_wrap" class="menu-trigger">
