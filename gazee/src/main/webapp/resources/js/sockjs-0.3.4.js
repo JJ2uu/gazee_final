@@ -1156,8 +1156,9 @@ SockJS.prototype.close = function(code, reason) {
 
 SockJS.prototype.send = function(data) {
     var that = this;
-    if (that.readyState === SockJS.CONNECTING)
+    if (that.readyState === SockJS.CONNECTING) {
         throw new Error('INVALID_STATE_ERR');
+    }
     if (that.readyState === SockJS.OPEN) {
         that._transport.doSend(utils.quote('' + data));
     }

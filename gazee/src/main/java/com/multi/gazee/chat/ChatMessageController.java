@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,12 @@ public class ChatMessageController {
 			try {
 				Date date2 = format.parse(timestamp);
 				Timestamp timestamp2 = new Timestamp(date2.getTime());
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(timestamp2);
+				calendar.add(Calendar.HOUR_OF_DAY, 9);
+				Timestamp updatedTime = new Timestamp(calendar.getTimeInMillis());
 				bag2.setRoomId(roomId);
-				bag2.setLastMessageDate(timestamp2);
+				bag2.setLastMessageDate(updatedTime);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

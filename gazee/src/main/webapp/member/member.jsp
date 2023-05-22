@@ -5,15 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
+<script type="text/javascript" src="../resources/js/stomp.js"></script>
+<script type="text/javascript" src="../resources/js/WebSocket.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		$('#b1').click(function() {
@@ -36,7 +35,19 @@
 								alert("로그인 오류발생");
 							} else {
 								//alert("로그인 성공");
-								location.href ="../product/test.jsp"
+								$.ajax({
+									url: '../chat/myChatRoomIds',
+									data: {
+										memberId: id2
+									},
+									success: function(roomIds) {
+										subscribeToChatRooms(roomIds);
+										location.href ="../product/test.jsp"
+									},
+									error: function(e) {
+										console.log(e)
+									}
+								})
 							}
 						},//success
 						error: function(){
@@ -49,7 +60,7 @@
 			}else{
 				alert("아이디를 입력해주세요");
 			}
-				})
+		})
 	})
 	</script>
 <style>

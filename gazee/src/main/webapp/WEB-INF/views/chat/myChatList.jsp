@@ -4,6 +4,7 @@
 <c:forEach items="${list}" var="bag">
 	<li class="chat_list" id="chat${bag.roomId}" value="${bag.roomId}">
 		<div class="chatList">
+			<div class="newMessage"></div>
 			<div class="chatPartnerProfile">
 				<img src="../resources/img/profile.jpg" width="40px;">
 			</div>

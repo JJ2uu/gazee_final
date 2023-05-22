@@ -10,11 +10,11 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
-let IMP_KEY = "${IMP_KEY}";
+let IMP_KEY = "imp87312461";
 var IMP = window.IMP;
 IMP.init(IMP_KEY);
 function requestPay(method) {
-	const chargeAmount = document.querySelector('.input-charge').value;
+	const chargeAmount = 10000;
 	const payMethod = method === 1 ? 'card' : 'trans';
 	if(chargeAmount==''){
 		var msg = '금액을 입력해주세요'

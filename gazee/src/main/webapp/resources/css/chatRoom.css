@@ -52,6 +52,7 @@ p {
     border-bottom: 1px solid #D8D8D8;
     padding: 25px 20px;
     justify-content: space-between;
+    position: relative;
 }
 
 /* 채팅방 나가기 버튼 */
@@ -80,6 +81,16 @@ p {
 	text-align: right;
 	font-size: 14px;
 	color: #bdbdbd;
+}
+
+.newMessage {
+	width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background: #ce0000;
+    position: absolute;
+    top: 15px;
+    visibility: hidden;
 }
 
 /* 채팅상대 아이디 span */
@@ -389,8 +400,8 @@ p {
 }
 
 /* 모달 내부 div */
-.modal_body {
-	width: 960px;
+.payment_modal_body {
+	width: 800px;
     background-color: #fff;
     display: flex;
     position: relative;
@@ -403,10 +414,10 @@ p {
 	margin:auto;
 }
 
-/* 모달창 닫기 버튼 */
-.btn_modal_close {
+/* payment 모달창 닫기 버튼 */
+.btn_payment_modal_close {
 	position: absolute;
-    left: 900px;
+    left: 750px;
     top: 30px;
     cursor: pointer;
 }
@@ -429,6 +440,12 @@ p {
     gap: 5px;
 }
 
+/* 최종결제버튼 */
+#btn_finalPayment {
+	cursor: pointer;
+}
+
+/* 주소입력창 */
 .address_input {
 	margin: 0.2em 0;
     font-size: 14px;
@@ -441,6 +458,7 @@ p {
     outline: 0;
 }
 
+/* 우편번호 찾기 버튼 */
 .btn_address {
     padding: 0.35em 1em;
     margin: 0.4em 0.15em;
@@ -453,4 +471,71 @@ p {
     font-size: 1em;
     line-height: 1.25em;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f2f2f2));
+}
+
+/* 가지페이 결제 잔액 부족시 충전안내 모달 */
+#gazeepay_modal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.6);
+	justify-content: center;
+	display: none;
+	z-index: 4;
+}
+
+.gazeepay_modal_body {
+	width: 300px;
+	height: 300px;
+	border-radius: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    position: relative;
+}
+
+/* 충전안내 모달창 닫기 버튼 */
+.btn_gazeepay_modal_close {
+	position: absolute;
+	left: 300px;
+	top: 20px;
+	cursor: pointer;
+}
+
+/* 충전안내 모달창 - 금액 정보 */
+.gazeepay_modal_amount {
+	display: flex;
+	flex-flow: column;
+	gap: 5px;
+	width: 260px;
+}
+
+.amount {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+}
+
+.amount > span:nth-child(2) {
+	font-weight: bold;
+}
+
+.amount:nth-last-child(1) {
+	color: #693FAA;
+}
+
+/* 충전안내 모달창 - 충전버튼 */
+.btn_charge {
+	width: 100px;
+	height: 40px;
+	background: #693FAA;
+	color: #fff;
+	border-style: none;
+	border-radius: 10px;
+	cursor: pointer;
 }

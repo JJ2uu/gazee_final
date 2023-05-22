@@ -1,6 +1,25 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript">
+	function dealDirectDateUpdate(roomId) {
+		const day = document.querySelector("#input_date").value;
+		const timestamp = new Date(day).toISOString().slice(0, 19).replace('T', ' ');
+		$.ajax({
+			url: 'dealDirectDateUpdate',
+			data: {
+				roomId: roomId,
+				dealDirectDate: timestamp
+			},
+			success: function() {
+				console.log('등록완료')
+			},
+			error: function(x) {
+				console.log(x)
+			}
+		})
+	}
+</script>
 		<%
 			String sessionId = (String)session.getAttribute("id");
 			String sellerId = (String)request.getAttribute("sellerId");
@@ -42,15 +61,15 @@
 				String dealType = (String)request.getAttribute("dealType");
 				if(dealType.equals("직거래")) {
 			%>
-				<button id="btn_dealDirectDate">입력</button>
+				<button id="btn_dealDirectDate" onclick="dealDirectDateUpdate(${bag.roomId})">입력</button>
 				<div id="dealDirectDate">
-					<input type="datetime-local" name="starttime" style="border: none; outline: none;">
+					<input id="input_date" type="datetime-local" name="starttime" style="border: none; outline: none;" value="${dealDirectDate}">
 				</div>
 			<%
 				}
 			%>
 			<div class="chatArea">
-				<div class="chatLog" id="chatLog">
+				<div class="chatLog" id="chatLog${bag.roomId}">
 				</div>
 			</div>
 			<div class="chatWrite_wrap">
@@ -92,7 +111,7 @@
 				</div>
 			</div>
 			<div class="chatArea" id="chatArea">
-				<div class="chatLog" id="chatLog">
+				<div class="chatLog" id="chatLog${bag.roomId}">
 
 				</div>
 			</div>

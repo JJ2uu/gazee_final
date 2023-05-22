@@ -6,7 +6,7 @@
 		insert into chat values (null, #{productId}, #{sellerId}, #{buyerId}, #{dealType}, null, null);
 	</insert>
 	
-	<update id="update" parameterType="chatVO">
+	<update id="lastMessageTimeUpdate" parameterType="chatVO">
 		update chat set last_message_time = #{lastMessageDate} where room_id = ${roomId}
 	</update>
 	
@@ -26,6 +26,10 @@
 	<delete id="roomLeave" parameterType="Integer">
 		delete from chat where room_id = #{roomId}
 	</delete>
+	
+	<update id="dealDateUpdate" parameterType="chatVO">
+		update chat set deal_direct_date = #{dealDirectDate} where room_id = #{roomId}
+	</update>
 	
 </mapper>
 

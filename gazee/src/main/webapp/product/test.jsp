@@ -7,12 +7,34 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
+<script type="text/javascript" src="../resources/js/WebSocket.js"></script>
 <script type="text/javascript">
 	$(function() {
 		
 		var session = '<%=session.getAttribute("id")%>'
+		var socketSession = '<%= session.getAttribute("subscribedRoomIds")%>'
 		
 		$("#sender").attr('value', session);
+		
+		if (socketSession != null) {
+			$(document).ready(function() {
+				$.ajax({
+					url: '../chat/getSubscribedRoomIds',
+					type: 'GET',
+			        dataType: 'json',
+			        success: function(response) {
+			            var roomIds = response;
+			            roomIds.forEach(function(roomId) {
+			            	allSocketConnect(roomId);
+			            });
+			        },
+			        error: function(error) {
+			            console.error('Failed to get subscribed roomIds from session');
+			            console.log(error);
+			        }
+				})
+			})
+		}
 		
 		/* gnb에 있는 [내 채팅목록] 버튼을 눌렀을 때 */
 		/* 상품 상세페이지에서 판매자가 내 판매페이지에서 [채팅목록]을 눌렀을 때 */
