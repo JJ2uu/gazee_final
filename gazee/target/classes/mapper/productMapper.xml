@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+	
+	<select id="productOne" parameterType="Integer" resultType="productVO">
+		select * from product where product_id = #{productId}
+	</select>
+	
+	<select id="productDetail" resultType="ProductVO" parameterType="Integer">
+		select * from product where product_id = #{productId}
+	</select>
+	
+	<select id="all" resultType="ProductVO">
+		select * from product
+	</select>
+	
+	<insert id="register" parameterType="productVO">
+		INSERT INTO product (member_id, category, product_name, product_content, price, deal_direct, `direct_addressx`, `direct_addressy`, deal_delivery, product_views, temporary, `saved_time`) VALUES(#{memberId}, #{category}, #{productName}, #{productContent}, #{price}, #{dealDirect}, #{directAddressx}, #{directAddressy}, #{dealDelivery}, 0, #{temporary}, #{savedTime});
+	</insert>
+	
+	<update id="productUpdate" parameterType="productVO">
+		update product set category=#{category}, product_name=#{productName}, product_content=#{productContent}, price=#{price}, deal_direct=#{dealDirect}, `direct_addressx`=#{directAddressx}, `direct_addressy`=#{directAddressy}, deal_delivery=#{dealDelivery}, product_views=0, `saved_time`=#{savedTime} where member_id = #{memberId} and product_id=#{productId}
+	</update>
+	
+	<delete id="productDelete" parameterType="productVO">
+		delete from product where member_id = #{memberId} and product_id = #{productId}
+	</delete>
+	
+	<select id="checkTemporaryProduct" resultType="productVO" parameterType="productVO">
+		select * from product where member_id = #{memberId} and `temporary` = 0
+	</select>
+	
+	<delete id="temporaryDelete" parameterType="productVO">
+		delete * from product where member_id = #{memberId} and `temporary` = 0
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productImage">
+
+	<select id="productImage" resultType="ProductImageVO" parameterType="Integer">
+		select * from product_image where product_id = #{productId}
+	</select>
+	
+	
+	
+	<delete id="productImageDelete"  parameterType="productVO">
+		delete from product_image where product_id = #{productId}
+	</delete>
+	
+		
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
