@@ -45,6 +45,7 @@ public class ProductController {
 	    ReportCountVO bag3 = dao3.reportCount(memberId);
 	    model.addAttribute("bag3", bag3); // 판매자 정보 불러오기
 	}
+	
 	@RequestMapping("product/detail_owner")
 	public void productDetailOwner(HttpSession session, Model model, int productId) {
 		
@@ -109,8 +110,10 @@ public class ProductController {
 	    	model.addAttribute("bag", bag2);
 	    	model.addAttribute("productId", bag2.getProductId());
 		} else {//임시저장 없음 바로 글쓰기
-			model.addAttribute("result",0);
-			bag2.setProductId(0);
+	        model.addAttribute("result", 0);
+	        bag2 = new ProductVO(); // new ProductVO
+	        bag2.setProductId(0);
+	        model.addAttribute("bag", bag2);
 		}
 	}
 

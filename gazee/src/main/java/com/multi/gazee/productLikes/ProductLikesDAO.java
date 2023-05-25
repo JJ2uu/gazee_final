@@ -18,4 +18,9 @@ public class ProductLikesDAO {
 		int result = my.delete("productLikes.unLikes", bag);
 		return result;
 	}
+	
+	public ProductLikesVO checkLikes(ProductLikesVO bag) {
+		ProductLikesVO bag2 = my.selectOne("productLikes.checkLikes", bag);
+		return bag2;
+	}
 }

@@ -14,4 +14,9 @@ public class OrderDAO {
 		int result = my.insert("order.insert", bag);
 		return result;
 	}
+	
+	public OrderVO orderCheck(int productId) {
+		OrderVO bag = my.selectOne("order.check", productId);
+		return bag;
+	}
 }

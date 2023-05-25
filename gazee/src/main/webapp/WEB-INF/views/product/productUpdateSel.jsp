@@ -220,7 +220,7 @@ $(function() {
 	</tr>
 </table>
 <div>
-	<button id="update" class="btn_updel">수정</button>
+	<button id="update" class="btn_updel">수정 및 저장</button>
 	<button id="delete" class="btn_updel">삭제</button>
 </div>
 

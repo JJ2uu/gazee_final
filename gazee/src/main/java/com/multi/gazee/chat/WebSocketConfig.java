@@ -9,7 +9,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 	@Configuration
 	@EnableWebSocketMessageBroker
 	public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
-	
+		
 		public void configureMessageBroker(MessageBrokerRegistry config) {
 			// "/topic" 시작되는 destination은 메시지를 broker로 라우팅 한다.
 			config.enableSimpleBroker("/topic");
@@ -22,5 +22,4 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 			registry.addEndpoint("/chat/{roomId}");
 			registry.addEndpoint("/chat/{roomId}").withSockJS();
 		}
-	
 	}

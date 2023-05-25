@@ -19,7 +19,7 @@
 	</insert>
 	
 	<update id="productUpdate" parameterType="productVO">
-		update product set category=#{category}, product_name=#{productName}, product_content=#{productContent}, price=#{price}, deal_direct=#{dealDirect}, `direct_addressx`=#{directAddressx}, `direct_addressy`=#{directAddressy}, deal_delivery=#{dealDelivery}, product_views=0, `saved_time`=#{savedTime} where member_id = #{memberId} and product_id=#{productId}
+		update product set category=#{category}, product_name=#{productName}, product_content=#{productContent}, price=#{price}, deal_direct=#{dealDirect}, `direct_addressx`=#{directAddressx}, `direct_addressy`=#{directAddressy}, deal_delivery=#{dealDelivery}, product_views=0, `saved_time`=#{savedTime},`temporary` = #{temporary} where member_id = #{memberId} and product_id=#{productId}
 	</update>
 	
 	<delete id="productDelete" parameterType="productVO">

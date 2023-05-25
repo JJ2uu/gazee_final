@@ -19,33 +19,6 @@
 	var socketSession = '<%= session.getAttribute("subscribedRoomIds")%>';
 
 	$(function() { //body 읽어왔을때
-		$.ajax({
-			url : "../product/list",
-			success : function(res) {
-				$('#list').append(res)
-			}
-		})
-		$('#register').click(function() {
-			var sessionId = "<%=session.getAttribute("id")%>";
-			//임시저장이 된(temporary가 0인) product가 있으면 임시저장된것을 불러올지 임시저장한 product를 삭제할지 묻고 임시저장을 불러온다하면 productUpdateSel로 아니면 productDelete로처리하고 register.jsp로 이동
-			$.ajax({
-				url : "../product/checkTemporaryProduct",
-				data : {
-					memberId : sessionId,
-					temporary: 0 // temporary 값을 0으로 넣어줍니다.
-				},
-				dataType: 'html', // 응답 형식을 HTML로 지정합니다.
-	            success: function(response) {
-	                $('#result').html(response);
-	            },
-			    error: function(xhr, status, error) {
-			    	// 임시저장된 product가 없을 경우 register.jsp로 이동
-			        location.href = "../product/register.jsp?memberId=" + sessionId;
-		        } 
-			})
-
-		})
-		
 		if (socketSession != null) {
 			$(document).ready(function() {
 				$.ajax({
@@ -65,6 +38,31 @@
 				})
 			})
 		}
+		
+		$.ajax({
+			url : "../product/list",
+			success : function(res) {
+				$('#list').append(res)
+			}
+		})
+		$('#register').click(function() {
+			var sessionId = "<%=session.getAttribute("id")%>";
+			//임시저장이 된(temporary가 0인) product가 있으면 임시저장된것을 불러올지 임시저장한 product를 삭제할지 묻고 임시저장을 불러온다하면 productUpdateSel로 아니면 productDelete로처리하고 register.jsp로 이동
+			$.ajax({
+				url : "../product/checkTemporaryProduct",
+				data : {
+					memberId : sessionId,
+				},
+	            success: function(response) {
+	                $('#result').html(response);
+	            },
+			    error: function(xhr, status, error) {
+			    	// 임시저장된 product가 없을 경우 register.jsp로 이동
+			        location.href = "../product/register.jsp?memberId=" + sessionId;
+		        } 
+			})
+
+		})
 	})
 </script>
 
@@ -84,6 +82,7 @@
 				<div id="list"></div>
 			</div>
 		</div>
+		<jsp:include page="../home/SideBar.jsp" flush="true"/>
 		<jsp:include page="Footer.jsp" flush="true" />
 	</div>
 

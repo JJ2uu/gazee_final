@@ -6,9 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
 table {
 	margin-left: auto;
@@ -46,80 +44,104 @@ table {
 	background-color: #f7e3fc;
 }
 </style>
-
 <script type="text/javascript">
-
-var urlParams = new URLSearchParams(location.search);
-var productId = urlParams.get('productId');
-
-$(function() {
-	  var directBtn = $("#directChack");
-	  var deliveryBtn = $("#deliveryChack");
-	  var dealType = ""; // 초기값은 빈 문자열로 설정
-	  
-	  // 직거래 버튼 클릭 시
-	  directBtn.click(function() {
-	    if (!directBtn.hasClass("clicked")) {
-	      // 직거래 버튼이 선택되지 않은 상태라면 토글 클래스 추가
-	      directBtn.addClass("clicked");
-	      deliveryBtn.removeClass("clicked"); // 택배거래 버튼 클래스 제거
-	      dealType = "직거래"; // 토글된 버튼의 값을 변수에 할당
-	      console.log(dealType);
-	    }
-	  });
-
-	  // 택배거래 버튼 클릭 시
-	  deliveryBtn.click(function() {
-	    if (!deliveryBtn.hasClass("clicked")) {
-	      // 택배거래 버튼이 선택되지 않은 상태라면 토글 클래스 추가
-	      deliveryBtn.addClass("clicked");
-	      directBtn.removeClass("clicked"); // 직거래 버튼 클래스 제거
-	      dealType = "택배거래"; // 토글된 버튼의 값을 변수에 할당
-	    }
-	  });
-
-	  /// 버튼 클릭 시 Ajax 요청
-	  $("#chatStart").click(function() {
-	    // Ajax 요청 수행
-	    $.ajax({
-	      url: "../chat/chatRoomCheck", // 서버의 URL로 수정
-	      data: {
-	    	dealType: dealType, // 선택된 거래 방식 전달
-	        productId: productId,
-			buyerId: '<%= session.getAttribute("id")%>'
-	      },
-	      success: function(roomId) {
-	    	  /* 해당 상품에 대한 채팅방이 이미 있는 경우 */
-				if (roomId != 0) {
-					location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
-				} else {
-					/* 방이 없는 경우 */
-					$.ajax({
-						url: '../chat/chatRoomCreate',
-						data : {
-							productId : productId,
-							buyerId : '<%= session.getAttribute("id")%>',
-							dealType : dealType
-						}, success : function(roomId) {
-							console.log(roomId)
-							if (roomId != 0) {
-								location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
-							} else {
-								alert('실패')
-							}
-						}
-					})
-				}
-			}
-	    });
-	  });
-	});
+	var urlParams = new URLSearchParams(location.search);
+	var productId = urlParams.get('productId');
 	
 	$(function() {
+		var directBtn = $("#directChack");
+		var deliveryBtn = $("#deliveryChack");
+		var dealType = ""; // 초기값은 빈 문자열로 설정
+		var session = '<%=session.getAttribute("id")%>'
+		  
+		// 직거래 버튼 클릭 시
+		directBtn.click(function() {
+			if (!directBtn.hasClass("clicked")) {
+				// 직거래 버튼이 선택되지 않은 상태라면 토글 클래스 추가
+				directBtn.addClass("clicked");
+				deliveryBtn.removeClass("clicked"); // 택배거래 버튼 클래스 제거
+				dealType = "직거래"; // 토글된 버튼의 값을 변수에 할당
+				console.log(dealType);
+			}
+		});
+	
+		// 택배거래 버튼 클릭 시
+		deliveryBtn.click(function() {
+			if (!deliveryBtn.hasClass("clicked")) {
+				// 택배거래 버튼이 선택되지 않은 상태라면 토글 클래스 추가
+				deliveryBtn.addClass("clicked");
+				directBtn.removeClass("clicked"); // 직거래 버튼 클래스 제거
+				dealType = "택배거래"; // 토글된 버튼의 값을 변수에 할당
+			}
+		});
+	
+		  /// 버튼 클릭 시 Ajax 요청
+		$("#chatStart").click(function() {
+			productId = productId;
+			buyerId = "<%= session.getAttribute("id") %>";
+			dealType = dealType;
+			console.log(productId)
+			console.log(buyerId)
+			console.log(dealType)
+		    
+			if (dealType.trim().length === 0) {
+						alert("거래방식을 선택해주세요");
+			} else {
+				$.ajax({
+					url: "../chat/chatRoomCheck", // 서버의 URL로 수정
+					data: {
+						dealType: dealType, // 선택된 거래 방식 전달
+						productId: productId,
+						buyerId: '<%= session.getAttribute("id")%>'
+					},
+					success: function(roomId) {
+						/* 해당 상품에 대한 채팅방이 이미 있는 경우 */
+						if (roomId != 0) {
+							location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
+						} else {
+							/* 방이 없는 경우 */
+							$.ajax({
+								url: '../chat/chatRoomCreate',
+								data : {
+									productId : productId,
+									buyerId : buyerId,
+									dealType : dealType
+								}, success : function(roomId) {
+									console.log(roomId)
+									if (roomId != 0) {
+										location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
+									} else {
+										console.log('실패')
+									}
+								}
+							})
+						}
+					}
+				});
+			}
+		});
+		  
+		$(document).ready(function() {
+			$.ajax({
+				url : "checkLikes",
+				type : "POST",
+				data : {
+					memberId : memberId,
+					productId : productId
+				},
+				success : function(x) {
+					if(x === 1){
+						$('#productlike').css('color', 'red');
+					}else{
+						$('#productlike').css('color', 'gray');
+					}
+				}
+			})
+		})
+		  
 		$('#productlike').click(function() {
-			var memberId = "${bag.memberId}"; // 원래는 로그인 세션의 멤버 아이디를 가져와야 합니다
-			var productId = ${bag.productId};
-
+			memberId = session
+			productId = productId
 			$.ajax({
 				url : "unlike", // 좋아요 취소를 처리하는 서버의 경로로 수정
 				type : "POST",
@@ -151,7 +173,6 @@ $(function() {
 		});
 	});
 </script>
-
 </head>
 <body>
 	<table>

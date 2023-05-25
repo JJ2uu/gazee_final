@@ -3,8 +3,12 @@
 <mapper namespace="order">
 
 	<insert id="insert" parameterType="orderVO">
-		insert into tb_order values (null, #{transactionId}, #{roomId}, #{dealType}, #{productId}, #{sellerId}, #{buyerId}, 1, 0, 0, 0, null, #{address}, null, null);
+		insert into tb_order values (null, #{transactionId}, #{roomId}, #{dealType}, #{productId}, #{sellerId}, #{buyerId}, 1, 0, 0, 0, current_timestamp, #{address}, null, null);
 	</insert>
+	
+	<select id="check" parameterType="Integer" resultType="orderVO">
+		select * from tb_order where product_id = #{productId}
+	</select>
 
 </mapper>
 

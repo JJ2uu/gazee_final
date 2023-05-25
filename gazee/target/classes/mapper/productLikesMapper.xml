@@ -10,6 +10,10 @@
 	<delete id="unLikes"  parameterType="ProductLikesVO">
 		delete from product_likes where product_id = #{productId} and member_id = #{memberId}
 	</delete>
+	
+	<select id="checkLikes" resultType="ProductLikesVO" parameterType="ProductLikesVO">
+		select * from product_likes where product_id = #{productId} and member_id = #{memberId}
+	</select>
 
 </mapper>
 
