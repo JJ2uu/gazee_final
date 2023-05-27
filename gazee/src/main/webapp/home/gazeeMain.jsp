@@ -16,27 +16,11 @@
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
 <script type="text/javascript">
 
-	var socketSession = '<%= session.getAttribute("subscribedRoomIds")%>';
-
 	$(function() { //body 읽어왔을때
-		if (socketSession != null) {
-			$(document).ready(function() {
-				$.ajax({
-					url: '../chat/getSubscribedRoomIds',
-					type: 'GET',
-			        dataType: 'json',
-			        success: function(response) {
-			            var roomIds = response;
-			            roomIds.forEach(function(roomId) {
-			            	allSocketConnect(roomId);
-			            });
-			        },
-			        error: function(error) {
-			            console.error('Failed to get subscribed roomIds from session');
-			            console.log(error);
-			        }
-				})
-			})
+		var sessionId = "<%=session.getAttribute("id")%>";
+		
+		if (sessionId !== null) {
+			subscribeToUser(sessionId);
 		}
 		
 		$.ajax({
@@ -46,7 +30,6 @@
 			}
 		})
 		$('#register').click(function() {
-			var sessionId = "<%=session.getAttribute("id")%>";
 			//임시저장이 된(temporary가 0인) product가 있으면 임시저장된것을 불러올지 임시저장한 product를 삭제할지 묻고 임시저장을 불러온다하면 productUpdateSel로 아니면 productDelete로처리하고 register.jsp로 이동
 			$.ajax({
 				url : "../product/checkTemporaryProduct",
@@ -85,6 +68,5 @@
 		<jsp:include page="../home/SideBar.jsp" flush="true"/>
 		<jsp:include page="Footer.jsp" flush="true" />
 	</div>
-
 </body>
 </html>

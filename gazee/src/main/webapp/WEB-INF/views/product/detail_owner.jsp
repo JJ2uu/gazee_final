@@ -66,8 +66,8 @@ $(function() {
           }
       });
 	  
-	  $("#chatlist").click(function() {
-		  var sessionId = "<%= session.getAttribute("id") %>";
+		$("#chatlist").click(function() {
+			var sessionId = "<%= session.getAttribute("id") %>";
 			if (sessionId != null) {
 				location.href = "../chat/gazeeChat.jsp";
 			}

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style type="text/css">
 table {
 	margin-left: auto;
@@ -46,6 +46,7 @@ table {
 </style>
 <script type="text/javascript">
 	var urlParams = new URLSearchParams(location.search);
+	var memberId = '<%= session.getAttribute("id")%>'
 	var productId = urlParams.get('productId');
 	
 	$(function() {
@@ -224,7 +225,6 @@ table {
 				</div>
 			</td>
 			<td><button id="chatStart">판매자와 채팅하기</button></td>
-
 		</tr>
 	</table>
 </body>

@@ -243,7 +243,6 @@ input[id="hamburger"]:checked+label+div {
 	font-weight: 600;
 	color: rgb(102, 102, 102);
 	text-align: center;
-	margin-bottom: 8px;
 }
 
 .recentViewCount {
@@ -270,4 +269,10 @@ input[id="hamburger"]:checked+label+div {
 	font-size: 12px;
 	font-weight: 600;
 	cursor: pointer;
+}
+.btn_sell, .btn_myChatlist, .btn_chatBot {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	gap: 3px;
 }

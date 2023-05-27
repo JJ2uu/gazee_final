@@ -1,44 +1,93 @@
 		var stompClient = null;
+		var stompClient2 = null;
 		var connectedRoomIds = [];
+		var sessionId = "";
 		
 		window.addEventListener("beforeunload", function() {
 			console.log("소켓삭제");
 			disconnectWebSocket();
 		});
+		
+		if (connectedRoomIds != null) {
+			$.ajax({
+				url: '../chat/getSubscribedRoomIds',
+				type: 'GET',
+			    dataType: 'json',
+			    success: function(response) {
+					var roomIds = response;
+					roomIds.forEach(function(roomId) {
+					allSocketConnect(roomId);
+					});
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			})
+		}
+	
+		function isWebSocketConnected(roomId) {
+			return connectedRoomIds.includes(roomId);
+		}
 
 		function subscribeToChatRooms(roomIds) {
 			roomIds.forEach(function(roomId) {
 				allSocketConnect(roomId);
-				connectedRoomIds.push(roomId);
 			});
 			saveSubscribedRoomIdsToSession(connectedRoomIds);
 		}
 		
-		function allSocketConnect(roomId) {
-			// 소켓 생성
-			let socket = new SockJS('/gazee/chat/' + roomId);
-			stompClient = Stomp.over(socket);
-			
+		function subscribeToUser(memberId) {
+			let socket = new SockJS('/gazee/user/' + memberId);
+			stompClient2 = Stomp.over(socket);
+			sessionId = memberId;
+				
+			stompClient2.connect({}, function(frame) {
+				stompClient2.subscribe('/topic/' + memberId, function(message) {
+					let chatRoomInfo = JSON.parse(message.body);
+        			addChatRoomIdToSession(chatRoomInfo);
+				}, function(error) {
+					console.error('ERROR', error);
+					reconnectUserWebSocket(memberId);
+				});
+			}, function(error) {
+				console.error('ERROR', error);
+				reconnectUserWebSocket(memberId);
+			});
+		}
 		
-			stompClient.connect({}, function(frame) {
-				stompClient.subscribe('/topic/' + roomId, function(messageOutput) {
-					showMessageOutput(JSON.parse(messageOutput.body));
-					lastChatMessage(JSON.parse(messageOutput.body));
+		function allSocketConnect(roomId) {
+			if (!isWebSocketConnected(roomId)) {
+				let socket = new SockJS('/gazee/chat/' + roomId);
+				stompClient = Stomp.over(socket);
+				connectedRoomIds.push(roomId);
+				
+				stompClient.connect({}, function(frame) {
+					stompClient.subscribe('/topic/' + roomId, function(messageOutput) {
+						showMessageOutput(JSON.parse(messageOutput.body));
+						lastChatMessage(JSON.parse(messageOutput.body));
+					}, function(error) {
+						console.error('ERROR', error);
+						reconnectWebSocket(roomId);
+					});
 				}, function(error) {
 					console.error('ERROR', error);
 					reconnectWebSocket(roomId);
 				});
-			}, function(error) {
-				console.error('ERROR', error);
-				reconnectWebSocket(roomId);
-			});
+			}
 		}
 		
 		function reconnectWebSocket(roomId) {
 			setTimeout(function() {
 				console.log('WebSocket 재연결 시도');
-				allSocketConnect(roomId); // 새로운 웹 소켓 연결을 시도합니다.
-			}, 3000); // 일정 시간 후에 연결을 시도합니다. 여기서는 3초로 설정하였습니다.
+				allSocketConnect(roomId);
+			}, 3000);
+		}
+		
+		function reconnectUserWebSocket(memberId) {
+			setTimeout(function() {
+				console.log('WebSocket 재연결 시도');
+				subscribeToUser(memberId);
+			}, 3000);
 		}
 		
 		function saveSubscribedRoomIdsToSession(roomIds) {
@@ -56,6 +105,20 @@
 					console.log(error)
 				}
 			});
+		}
+		
+		function addChatRoomIdToSession(roomId) {
+			$.ajax({
+				url: '../chat/addChatRoomIdToSession',
+				type: 'POST',
+				data: {
+					roomId: roomId
+				},
+				success: function(roomIds) {
+					console.log(roomIds);
+					subscribeToChatRooms(roomIds);
+				}
+			})
 		}
 		
 		function disconnectWebSocket() {
@@ -100,7 +163,7 @@
 						} else if (messageOutput.content == '결제완료') {
 							direct_paymentCompleteMyChat(messageOutput);
 						} else if (messageOutput.content == '운송장번호') {
-							console.log('운송장번호 입력해주세요')
+							delivery_paymentCompleteMyChat(messageOutput)
 						} else {
 							myChat(messageOutput);
 						}
@@ -110,7 +173,7 @@
 						} else if (messageOutput.content == '결제완료') {
 							direct_paymentCompletePartnerChat(messageOutput);
 						} else if (messageOutput.content == '운송장번호') {
-							console.log('운송장번호 입력해주세요')
+							delivery_paymentCompletePartnerChat(messageOutput)
 						} else {
 							partnerChat(messageOutput);
 						}
@@ -435,6 +498,7 @@
 		/* 새로운 메세지 Push알람 */
 		function newChatMessagePush(messageOutput) {
 			var x = document.getElementById("newMessagePushAlarm");
+			x.value = messageOutput.roomId;
 			let memberId = messageOutput.sender;
 			
 			if (x.innerHTML !== null) {
@@ -455,6 +519,11 @@
 					let contentDiv = document.createElement('div');
 					contentDiv.textContent = "새로운 메세지가 도착했습니다.";
 					x.append(contentDiv);
+					
+					x.addEventListener("click", function() {
+						var roomId = x.value;
+						location.href = "../chat/gazeeChat.jsp?roomId="+roomId;
+					});
 				}
 			})
 			x.className = "show";

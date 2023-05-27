@@ -14,33 +14,7 @@
 <script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
 <script type="text/javascript" src="../resources/js/WebSocket.js"></script>
-<script type="text/javascript">
-	
-	/* 소켓 연결 - 무조건 모든 페이지에 */
-	var socketSession = '<%= session.getAttribute("subscribedRoomIds")%>';
-	
-	$(function() {
-		if (socketSession != null) {
-			$(document).ready(function() {
-				$.ajax({
-					url: '../chat/getSubscribedRoomIds',
-					type: 'GET',
-			        dataType: 'json',
-			        success: function(response) {
-			            var roomIds = response;
-			            roomIds.forEach(function(roomId) {
-			            	allSocketConnect(roomId);
-			            });
-			        },
-			        error: function(error) {
-			            console.error('Failed to get subscribed roomIds from session');
-			            console.log(error);
-			        }
-				})
-			})
-		}
-	})
-</script>
+<script type="text/javascript"></script>
 <title>가지가지</title>
 </head>
 <body>

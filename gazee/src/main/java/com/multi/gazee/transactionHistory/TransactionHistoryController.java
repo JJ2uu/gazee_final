@@ -14,7 +14,7 @@ public class TransactionHistoryController {
 	@RequestMapping("transactionHistory/checkBalance")
 	@ResponseBody
 	public int checkBalance(String memberId) {
-		int balance = dao.checkBalance(memberId);
+		int balance = dao.select(memberId);
 		return balance;
 	}
 }

@@ -9,16 +9,25 @@ $(function() {
 	$('#btn_recentItem').click(function() {
 		location.href = "../recentlyViewed/recentlyViewedList.jsp"
 	})
+	
+	$(".btn_myChatlist").click(function() {
+		var sessionId = "<%= session.getAttribute("id") %>";
+		if (sessionId != null) {
+			location.href = "../chat/gazeeChat.jsp";
+		}
+	})
 })
 </script>
 <link rel="stylesheet" href="../resources/css/style.css" type="text/css">
-
 		<%
 			if(id!=null){
 		%>
 		<div id="recentView">
-			<div class="recentViewItem">
-				<div class="recentViewTxt">채팅방</div>
+			<div class="recentViewItem" style="background: #693FAA;">
+				<div class="btn_sell recentViewTxt" style="color: white;">
+					<img src="../resources/img/icon_money.svg" width="18px;">
+					판매하기
+				</div>
 			</div>
 			<div class="recentViewItem">
 				<div class="recentViewTxt">최근본상품</div>
@@ -31,7 +40,16 @@ $(function() {
 				</div>
 			</div>
 			<div class="recentViewItem">
-				<div class="recentViewTxt">가지 Chatbot</div>
+				<div class="btn_myChatlist recentViewTxt">
+					<img src="../resources/img/icon_chat2.svg" width="18px;">
+					채팅방
+				</div>
+			</div>
+			<div class="recentViewItem">
+				<div class="btn_chatBot recentViewTxt">
+					<img src="../resources/img/icon_bot.svg" width="20px;">
+					챗봇상담
+				</div>
 			</div>
 		</div>
 		<%

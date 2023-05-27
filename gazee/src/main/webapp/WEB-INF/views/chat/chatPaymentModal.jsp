@@ -5,7 +5,7 @@
 		<div class="modal_productImg"></div>
 		<div class="modal_productInfo">
 			<div>
-				<p>${bag2.productName}</p>
+				<p>${productVO.productName}</p>
 			</div>
 			<div style="font-size: 30px; font-weight: bold; margin-bottom: 5px;">
 				<p>${priceDec}원</p>
@@ -13,7 +13,7 @@
 			<div
 				style="display: flex; justify-content: space-between; font-size: 14px; text-align: center; color: #808080;">
 				<div style="width: 20%; padding: 10px; border: 1px solid #A1A1A1; border-radius: 10px;">
-					<p>${bag.dealType}</p>
+					<p>${chatVO.dealType}</p>
 				</div>
 				<%
 					String dealType2 = (String)request.getAttribute("dealType");
@@ -54,7 +54,7 @@
 					String order = (String)request.getAttribute("order");
 					if (order.equals("null")) {
 				%>
-					<button id="btn_finalPayment" onclick="order(${bag.roomId}, '${dealType}')">결제하기</button>
+					<button id="btn_finalPayment" onclick="order(${chatVO.roomId}, '${dealType}')">결제하기</button>
 				<%
 					} else {
 				%>
@@ -77,7 +77,7 @@
 					String order = (String)request.getAttribute("order");
 					if (order.equals("null")) {
 				%>
-					<button id="btn_finalPayment" onclick="gazeepay('${bag.buyerId}', ${bag2.productId}, '${dealType}')">결제하기</button>
+					<button id="btn_finalPayment" onclick="gazeepay('${chatVO.buyerId}', ${productVO.productId}, '${dealType}')">결제하기</button>
 				<%
 					} else {
 				%>
@@ -119,12 +119,10 @@
 <div style="width: 100%; margin-top: 20px; padding: 0 20px;">
 	<hr style="border: 1px solid #e1e1e1; width: 100%;">
 	<div style="margin-top: 20px; text-align: left;">
-		<span style="font-size: 18px; font-weight: bold; margin: 10px 0;">유의 사항</span>
-		<div style="width: 100%;">
-			<span>유의사항 1</span>
-			<span>유의사항 2</span>
-			<span>유의사항 3</span>
-			<span>유의사항 4</span>
+		<span style="font-size: 18px; font-weight: bold;">결제 안내사항</span>
+		<div style="width: 100%; display: flex; flex-flow: column; font-size: 14px; margin: 10px 0 0 0;">
+			<span style="color: #808080">결제 후 결제하신 대금은 정산이 이루어지기 전까지 가지페이가 보관하며, 확정 이후에 판매자에게 정산이 이루어집니다.</span>
+			<span style="color: red;">정산 이후에는 환불이 불가하오니 신중히 결정하시기 바랍니다.</span>
 		</div>
 	</div>
 </div>

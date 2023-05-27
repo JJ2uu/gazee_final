@@ -5,9 +5,13 @@
 <html>
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" href="../resources/css/product-register.css" type="text/css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/WebSocket.js"></script>
+<script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
+<script type="text/javascript" src="../resources/js/stomp.js"></script>
 <style type="text/css">
 .each-row{
 text-align: left;
@@ -112,6 +116,7 @@ $(function() {
 <body>
 <jsp:include page="../home/Header.jsp" flush="true"/>
 	<div id="wrap">
+		<div id="newMessagePushAlarm"></div>
 		<div id="main">
 			<div id="title">내 물건 팔기</div>
 			<div id="register_table">

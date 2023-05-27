@@ -21,5 +21,6 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			registry.addEndpoint("/chat/{roomId}");
 			registry.addEndpoint("/chat/{roomId}").withSockJS();
+			registry.addEndpoint("/user/{userId}").withSockJS();
 		}
 	}
