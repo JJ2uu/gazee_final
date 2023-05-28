@@ -18,5 +18,11 @@ public class OrderController {
 	public int orderComplete(OrderVO orderVO) {
 		return orderService.orderComplete(orderVO);
 	}
+	
+	@RequestMapping("order/orderCheck")
+	@ResponseBody
+	public OrderVO orderCheck(int productId) {
+		return orderService.orderCheck(productId);
+	}
 
 }

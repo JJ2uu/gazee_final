@@ -19,4 +19,8 @@ public class MemberDAO { // CRUD
 		MemberVO bag = gazee.selectOne("member.searchOne", id);
 		return bag;
 	}
+	
+	public void logoutTimeUpdate(String id) {
+		gazee.update("member.logoutTimeUpdate", id);
+	}
 }

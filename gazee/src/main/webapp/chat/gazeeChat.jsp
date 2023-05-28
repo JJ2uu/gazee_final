@@ -23,12 +23,9 @@
 	var memberId = '<%= session.getAttribute("id") %>';
 	var selectedRoomId = null;
 	
-	
 	$(function() {
+		handlePageLoad(memberId);
 		
-		if (memberId !== null) {
-			subscribeToUser(memberId);
-		}
 		/* 채팅 내역 불러오는 함수 */
 		function getChatHistory(roomId) {
 			$.ajax({
@@ -212,8 +209,36 @@
 									
 									/* [판매자]일 때 [판매하기] 버튼을 눌러 결제요청 */
 									let btn_sell = $("#btn_sell");
+									let btn_value = btn_sell.val();
+									console.log(btn_value)
+						
+									isButtonDisabled = false;
 									btn_sell.on('click', function() {
-										paymentMessage(roomId);
+										$.ajax({
+											url: '../order/orderCheck',
+											data: {
+												productId : btn_value
+											},
+											success: function(result) {
+												if (result == null) {
+													paymentMessage(roomId);
+													disableButton();
+													setTimeout(enableButton, 10 * 60 * 100);
+												} else {
+													alert('이미 판매한 상품입니다.')
+													location.reload();
+												}
+											}
+										})
+										function disableButton() {
+										  isButtonDisabled = true;
+										  btn_sell.prop('disabled', true);
+										}
+										
+										function enableButton() {
+											isButtonDisabled = false;
+											btn_sell.prop('disabled', false);
+										}
 									})
 									
 									/* [판매자]가 직거래 시간을 등록했을 때 전송 메세지 */
@@ -349,7 +374,7 @@
 	}
 	
 	/* 결제가 완료되었을 때 */
-	function order(roomId, dealType) {
+	function order(roomId, productId, dealType) {
 		if (dealType == '직거래') { /* 직거래일 때 */
 			$.ajax({
 				url: '../order/orderComplete',
@@ -359,7 +384,7 @@
 				success: function(result) {
 					if (result == 1) {
 						dealDirectComplete(roomId);
-						location.href = "../order/orderComplete.jsp"
+						location.href = "../order/orderComplete.jsp?productId=" + productId + "&dealType=" + dealType;
 					}
 				}
 			})
@@ -377,7 +402,7 @@
 				success: function(result) {
 					if (result == 1) {
 						dealDeliveryComplete(roomId);
-						location.href = "../order/orderComplete.jsp"
+						location.href = "../order/orderComplete.jsp?productId=" + productId + "&dealType=" + dealType;
 					}
 				}
 			})
@@ -409,11 +434,6 @@
 			'sender' : sender,
 			'content' : content
 		}));
-	}
-	
-	/* 숫자 쉼표 */
-	function formatNumber(number) {
-		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 </script>
 <style>

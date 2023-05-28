@@ -3,12 +3,14 @@
 		var connectedRoomIds = [];
 		var sessionId = "";
 		
-		window.addEventListener("beforeunload", function() {
-			console.log("소켓삭제");
-			disconnectWebSocket();
-		});
+		function handlePageLoad(memberId) {
+			if (memberId !== null) {
+				subscribeToUser(memberId);
+				reSubscribed();
+			}
+		}
 		
-		if (connectedRoomIds != null) {
+		function reSubscribed() {
 			$.ajax({
 				url: '../chat/getSubscribedRoomIds',
 				type: 'GET',
@@ -16,7 +18,7 @@
 			    success: function(response) {
 					var roomIds = response;
 					roomIds.forEach(function(roomId) {
-					allSocketConnect(roomId);
+						allSocketConnect(roomId);
 					});
 				},
 				error: function(error) {
@@ -29,13 +31,16 @@
 			return connectedRoomIds.includes(roomId);
 		}
 
+		/* 로그인시 받은 기존 roomIds로 구독 */
 		function subscribeToChatRooms(roomIds) {
 			roomIds.forEach(function(roomId) {
 				allSocketConnect(roomId);
+				connectedRoomIds.push(roomId);
 			});
 			saveSubscribedRoomIdsToSession(connectedRoomIds);
 		}
 		
+		/* 유저 구독 */
 		function subscribeToUser(memberId) {
 			let socket = new SockJS('/gazee/user/' + memberId);
 			stompClient2 = Stomp.over(socket);
@@ -55,11 +60,11 @@
 			});
 		}
 		
+		/* 방 구독 */
 		function allSocketConnect(roomId) {
 			if (!isWebSocketConnected(roomId)) {
 				let socket = new SockJS('/gazee/chat/' + roomId);
 				stompClient = Stomp.over(socket);
-				connectedRoomIds.push(roomId);
 				
 				stompClient.connect({}, function(frame) {
 					stompClient.subscribe('/topic/' + roomId, function(messageOutput) {
@@ -76,6 +81,7 @@
 			}
 		}
 		
+		/* 방 재연결 */
 		function reconnectWebSocket(roomId) {
 			setTimeout(function() {
 				console.log('WebSocket 재연결 시도');
@@ -83,6 +89,7 @@
 			}, 3000);
 		}
 		
+		/* 유저 재연결 */
 		function reconnectUserWebSocket(memberId) {
 			setTimeout(function() {
 				console.log('WebSocket 재연결 시도');
@@ -90,6 +97,7 @@
 			}, 3000);
 		}
 		
+		/* 내 세션에 저장된 roomId로 구독 */
 		function saveSubscribedRoomIdsToSession(roomIds) {
 			// Ajax를 사용하여 서버에 세션에 저장하는 요청을 보냄
 			$.ajax({
@@ -107,6 +115,7 @@
 			});
 		}
 		
+		/* 추가된 방 roomId 세션 저장 */
 		function addChatRoomIdToSession(roomId) {
 			$.ajax({
 				url: '../chat/addChatRoomIdToSession',
@@ -121,6 +130,7 @@
 			})
 		}
 		
+		/* 웹소켓 끊기 */
 		function disconnectWebSocket() {
 		    if (stompClient !== null) {
 		        stompClient.disconnect();
@@ -157,7 +167,7 @@
 				let roomId = responseId.substring(7);
 			
 				if (String(messageOutput.roomId) == roomId) { 
-					if (messageOutput.sender == memberId) {
+					if (messageOutput.sender == sessionId) {
 						if (messageOutput.content == '결제요청') {
 							paymentMyChat(messageOutput);
 						} else if (messageOutput.content == '결제완료') {
@@ -533,4 +543,14 @@
 		/* 결제내역 확인하러 마이페이지로 이동 */
 		function myPage() {
 			location.href = "../home/gazeeMain.jsp";
+		}
+		
+		/* 결제 후 채팅방으로 이동 */
+		function chatRoom(roomId) {
+			location.href = "../chat/gazeeChat.jsp?roomId=" +roomId;
+		}
+		
+		/* 숫자 쉼표 */
+		function formatNumber(number) {
+			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}

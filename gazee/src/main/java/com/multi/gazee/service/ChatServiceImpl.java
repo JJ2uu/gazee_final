@@ -149,7 +149,7 @@ public class ChatServiceImpl implements ChatService {
 			String dealDirectDate = format.format(updatedTime);
 			model.addAttribute("dealDirectDate", dealDirectDate);
 		}
-		if (orderVO != null) { //결제 후
+		if (orderVO != null && orderVO.getCanceled() == 0) { //결제 후
 			if (orderVO.getCompleteStatus() == 1) {
 				model.addAttribute("order", "done"); //거래 완료
 			} else {

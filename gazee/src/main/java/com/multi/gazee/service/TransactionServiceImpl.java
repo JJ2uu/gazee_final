@@ -26,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public String makeIdentifier(String transactionType, MemberVO memberVO, Timestamp transactionTime) {
 		String identifier = transactionType + String.format("%010d", memberVO.getNo()) + memberVO.getId().substring(0, 2) 
-				+ new SimpleDateFormat("yyyyMMddHHmmss").format(transactionTime);
+				+ new SimpleDateFormat("yyMMddHHmmss").format(transactionTime);
 		return identifier;
 	}
 

@@ -34,7 +34,7 @@
 				%>
 				<li id="login">${id}님</li>
 				<li class= "line">|</li>
-				<li>판매하기</li>
+				<li><a href="../member/logout">로그아웃</a></li>
 				<li class= "line">|</li>
 				<li>고객센터</li>
 				<li class= "line">|</li>

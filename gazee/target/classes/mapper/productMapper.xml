@@ -33,6 +33,10 @@
 	<delete id="temporaryDelete" parameterType="productVO">
 		delete * from product where member_id = #{memberId} and `temporary` = 0
 	</delete>
+	
+	<update id="sellTimeUpdate" parameterType="Integer">
+		update product set sell_time = #{sellTime} where product_id = #{productId}
+	</update>
 </mapper>
 
 

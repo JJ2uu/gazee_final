@@ -1,5 +1,8 @@
 package com.multi.gazee.service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +51,17 @@ public class OrderServiceImpl implements OrderService{
 		int result = orderDao.orderComplete(orderVO, memberVO, paid_amount, balance);
 		
 		return result;
+	}
+	
+	public OrderVO orderCheck(int productId) {
+		OrderVO orderVO = orderDao.orderCheck(productId);
+		Timestamp paymentTime = orderVO.getPaymentTime();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(paymentTime);
+		calendar.add(Calendar.HOUR_OF_DAY, -9);
+		Timestamp newPaymentTime = new Timestamp(calendar.getTimeInMillis());
+		orderVO.setPaymentTime(newPaymentTime);
+		return orderVO;
 	}
 	
 }

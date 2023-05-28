@@ -16,6 +16,7 @@ public class ProductVO {
 	private int productViews;
 	private int temporary;
 	private Timestamp savedTime;
+	private Timestamp sellTime;
 	public int getProductId() {
 		return productId;
 	}
@@ -94,12 +95,19 @@ public class ProductVO {
 	public void setSavedTime(Timestamp savedTime) {
 		this.savedTime = savedTime;
 	}
+	
+	public Timestamp getSellTime() {
+		return sellTime;
+	}
+	public void setSellTime(Timestamp sellTime) {
+		this.sellTime = sellTime;
+	}
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", category=" + category + ", memberId=" + memberId
 				+ ", productName=" + productName + ", productContent=" + productContent + ", price=" + price
 				+ ", dealDelivery=" + dealDelivery + ", dealDirect=" + dealDirect + ", directAddressx=" + directAddressx
 				+ ", directAddressy=" + directAddressy + ", productViews=" + productViews + ", temporary=" + temporary
-				+ ", savedTime=" + savedTime + "]";
+				+ ", savedTime=" + savedTime + ", sellTime=" + sellTime + "]";
 	}
 }

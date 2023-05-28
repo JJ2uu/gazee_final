@@ -33,4 +33,11 @@ public class MemberController {
 		MemberVO bag = dao.searchOne(memberId);
 		return bag;
 	}
+	
+    @RequestMapping("member/logout")
+    public String logout(HttpSession session) {
+    	dao.logoutTimeUpdate((String)session.getAttribute("id"));
+        session.invalidate();
+        return "redirect:member.jsp";
+    }
 }

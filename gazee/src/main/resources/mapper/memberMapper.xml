@@ -9,6 +9,10 @@
 	<select id="searchOne" parameterType="String" resultType="memberVO">
 		select * from member where id = #{id};
 	</select>
+	
+	<update id="logoutTimeUpdate" parameterType="String">
+		update member set logout_time = current_timestamp where id = #{id}
+	</update>
 
 </mapper>
 

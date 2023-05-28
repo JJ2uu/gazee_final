@@ -24,9 +24,8 @@ public class OrderDAO {
 		String transactionId = transactionService.makeIdentifier("o", memberVO, transactionTime);
 		orderVO.setTransactionId(transactionId);
 		int result = my.insert("order.insert", orderVO);
-		/*
-		 * transactionService.orderToTransactionHistory(orderVO, paid_amount, balance);
-		 */
+		//transactionService.orderToTransactionHistory(orderVO, paid_amount, balance);
+		
 		return result;
 	}
 	

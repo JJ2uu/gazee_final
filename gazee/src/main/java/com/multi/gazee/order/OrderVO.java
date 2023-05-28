@@ -18,6 +18,8 @@ public class OrderVO {
 	private String trackingNo;
 	private String deliveryCom;
 	private String address;
+	private int canceled;
+	private String cancelTransactionId;
 	
 	public int getNo() {
 		return no;
@@ -109,12 +111,16 @@ public class OrderVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	@Override
-	public String toString() {
-		return "OrderVO [no=" + no + ", transactionId=" + transactionId + ", roomId=" + roomId + ", dealType="
-				+ dealType + ", productId=" + productId + ", sellerId=" + sellerId + ", buyerId=" + buyerId
-				+ ", sellerConfirm=" + sellerConfirm + ", buyerConfirm=" + buyerConfirm + ", completeStatus="
-				+ completeStatus + ", setStatus=" + setStatus + ", paymentTime=" + paymentTime + ", trackingNo="
-				+ trackingNo + ", deliveryCom=" + deliveryCom + ", address=" + address + "]";
+	public int getCanceled() {
+		return canceled;
+	}
+	public void setCanceled(int canceled) {
+		this.canceled = canceled;
+	}
+	public String getCancelTransactionId() {
+		return cancelTransactionId;
+	}
+	public void setCancelTransactionId(String cancelTransactionId) {
+		this.cancelTransactionId = cancelTransactionId;
 	}
 }

@@ -17,11 +17,9 @@
 <script type="text/javascript">
 
 	$(function() { //body 읽어왔을때
-		var sessionId = "<%=session.getAttribute("id")%>";
+		var sessionId = "<%= session.getAttribute("id") %>";
 		
-		if (sessionId !== null) {
-			subscribeToUser(sessionId);
-		}
+		handlePageLoad(sessionId);
 		
 		$.ajax({
 			url : "../product/list",

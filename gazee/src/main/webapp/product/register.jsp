@@ -36,6 +36,10 @@ let dealDelivery = 0;
 
 $(function() {
 	
+    var sessionId = "<%= session.getAttribute("id") %>";
+    
+    handlePageLoad(sessionId);
+	
 	$('.delivery').click(function(){
 		if (dealDelivery == 1) {
 			dealDelivery = 0;

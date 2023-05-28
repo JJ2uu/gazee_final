@@ -5,4 +5,6 @@ import com.multi.gazee.order.OrderVO;
 public interface OrderService {
 	
 	int orderComplete(OrderVO orderVO);
+	
+	OrderVO orderCheck(int productId);
 }

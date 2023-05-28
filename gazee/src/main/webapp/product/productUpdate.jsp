@@ -28,6 +28,8 @@ $(function() {
 
     console.log(sessionId);
     console.log(productId);
+    
+    handlePageLoad(sessionId);
 
     $.ajax({
         url: "productUpdateSel",
