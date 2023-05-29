@@ -30,7 +30,7 @@ public class MemberController {
 	@RequestMapping("member/searchOne")
 	@ResponseBody
 	public MemberVO searchOne(String memberId) {
-		MemberVO bag = dao.searchOne(memberId);
+		MemberVO bag = dao.selectOne(memberId);
 		return bag;
 	}
 	

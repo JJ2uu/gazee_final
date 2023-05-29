@@ -22,7 +22,8 @@ public class OrderController {
 	@RequestMapping("order/orderCheck")
 	@ResponseBody
 	public OrderVO orderCheck(int productId) {
-		return orderService.orderCheck(productId);
+		OrderVO orderVO = orderService.orderCheck(productId);
+		return orderVO;
 	}
 
 }

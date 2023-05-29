@@ -15,7 +15,7 @@ public class MemberDAO { // CRUD
 		return result;
 	}
 	
-	public MemberVO searchOne(String id) {
+	public MemberVO selectOne(String id) {
 		MemberVO bag = gazee.selectOne("member.searchOne", id);
 		return bag;
 	}

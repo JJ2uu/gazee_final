@@ -35,6 +35,27 @@ public class ProductController {
 		return bag;
 	}
 	
+	@RequestMapping("product/sellTimeUpdate")
+	@ResponseBody
+	public int sellTimeUpdate(int productId) {
+		int result = dao.sellTimeUpdate(productId);
+		return result;
+	}
+	
+	@RequestMapping("product/sellTimeDelete")
+	@ResponseBody
+	public int sellTimeDelete(int productId) {
+		int result = dao.sellTimeDelete(productId);
+		return result;
+	}
+	
+	@RequestMapping("product/sellTimeCheck")
+	@ResponseBody
+	public ProductVO sellTimeCheck(int productId) {
+		ProductVO productVO = dao.productDetail(productId);
+		return productVO;
+	}
+	
 	@RequestMapping("product/detail")
 	public void productDetail(HttpSession session, Model model, int productId) {
 	    ProductVO bag = dao.productDetail(productId);

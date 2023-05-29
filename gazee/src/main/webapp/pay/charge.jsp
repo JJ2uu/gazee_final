@@ -14,7 +14,7 @@ let IMP_KEY = "imp87312461";
 var IMP = window.IMP;
 IMP.init(IMP_KEY);
 function requestPay(method) {
-	const chargeAmount = document.querySelector('.input_charge').value;
+	const chargeAmount = document.querySelector('.input-charge').value;
 	const payMethod = method === 1 ? 'card' : 'trans';
 	if(chargeAmount==''){
 		var msg = '금액을 입력해주세요'
@@ -81,14 +81,17 @@ function requestPay(method) {
 		console.log("결제 성공 : "+chargeAmount)
 		var msg = "결제가 처리되지 않았습니다. 다시 시도해주세요";
 		$.ajax({
-			url: 'charge',
+			url: '../charge/charge',
 		    type: 'POST',
 		    data: {
 		      amount: chargeAmount
 		    },
 		    success: function(x) {
 		      msg = '가지머니 충전이 완료 되었습니다.\n잔액을 확인해주세요!\n충전금액: ' + chargeAmount + '원';
-		    }
+		    },
+		    error: function(error) {
+				console.log(error)
+			}
 		});
 		alert(msg);
 	}

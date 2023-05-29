@@ -64,7 +64,7 @@
 						if(order2.equals("null")) {
 					%>
 						<div id="btn_sell">
-							<button value="${chatVO.productId}">판매하기</button>
+							<button>판매하기</button>
 						</div>
 					<%
 						} else if (order2.equals("yet")) {

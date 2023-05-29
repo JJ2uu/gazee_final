@@ -6,6 +6,14 @@
 		select * from product where product_id = #{productId}
 	</select>
 	
+	<update id="sellTimeUpdate" parameterType="Integer">
+		update product set sell_time = current_time where product_id = #{productId}
+	</update>
+	
+	<update id="sellTimeDelete" parameterType="Integer">
+		update product set sell_time = null where product_id = #{productId}
+	</update>
+	
 	<select id="productDetail" resultType="ProductVO" parameterType="Integer">
 		select * from product where product_id = #{productId}
 	</select>
@@ -33,10 +41,6 @@
 	<delete id="temporaryDelete" parameterType="productVO">
 		delete * from product where member_id = #{memberId} and `temporary` = 0
 	</delete>
-	
-	<update id="sellTimeUpdate" parameterType="Integer">
-		update product set sell_time = #{sellTime} where product_id = #{productId}
-	</update>
 </mapper>
 
 

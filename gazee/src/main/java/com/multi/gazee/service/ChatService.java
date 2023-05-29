@@ -42,4 +42,6 @@ public interface ChatService {
 	int lastMessageTimeUpdate(int roomId);
 	
 	ChatOutputMessageVO chatMessage(ChatMessageVO message, String roomId);
+	
+	ChatVO chatSelectOne(int roomId);
 }

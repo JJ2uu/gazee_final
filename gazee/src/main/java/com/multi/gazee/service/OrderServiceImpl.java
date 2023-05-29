@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService{
 	/* 주문 완료 */
 	public int orderComplete(OrderVO orderVO) {
 		ChatVO chatBag = chatDao.chatRoomOne(orderVO.getRoomId());
-		MemberVO memberVO = memberDao.searchOne(chatBag.getBuyerId());
+		MemberVO memberVO = memberDao.selectOne(chatBag.getBuyerId());
 		ProductVO productVO = productDao.productone(chatBag.getProductId());
 		
 		orderVO.setDealType(chatBag.getDealType());
@@ -55,12 +55,14 @@ public class OrderServiceImpl implements OrderService{
 	
 	public OrderVO orderCheck(int productId) {
 		OrderVO orderVO = orderDao.orderCheck(productId);
-		Timestamp paymentTime = orderVO.getPaymentTime();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(paymentTime);
-		calendar.add(Calendar.HOUR_OF_DAY, -9);
-		Timestamp newPaymentTime = new Timestamp(calendar.getTimeInMillis());
-		orderVO.setPaymentTime(newPaymentTime);
+	    if (orderVO != null) {
+	        Timestamp paymentTime = orderVO.getPaymentTime();
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(paymentTime);
+	        calendar.add(Calendar.HOUR_OF_DAY, -9);
+	        Timestamp newPaymentTime = new Timestamp(calendar.getTimeInMillis());
+	        orderVO.setPaymentTime(newPaymentTime);
+	    }
 		return orderVO;
 	}
 	

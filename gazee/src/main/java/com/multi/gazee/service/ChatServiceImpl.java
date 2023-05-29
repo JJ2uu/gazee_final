@@ -103,8 +103,8 @@ public class ChatServiceImpl implements ChatService {
 		List<String> lastMessage = new LinkedList<String>();
 		List<String> lastMessageTime = new LinkedList<String>();
 		for (int i = 0; i < list.size(); i++) {
-			MemberVO sellerVO = memberDao.searchOne(list.get(i).getSellerId());
-			MemberVO buyerVO = memberDao.searchOne(list.get(i).getBuyerId());
+			MemberVO sellerVO = memberDao.selectOne(list.get(i).getSellerId());
+			MemberVO buyerVO = memberDao.selectOne(list.get(i).getBuyerId());
 			if (list.get(i).getBuyerId().equals(memberId)) {
 				nickname.add(sellerVO.getNickname());
 			} else {
@@ -133,8 +133,8 @@ public class ChatServiceImpl implements ChatService {
 	/* 해당 채팅방 입장 */
 	public void chatRoomEntry(int roomId, Model model) {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId); //채팅방 정보 가져오기
-		MemberVO sellerVO = memberDao.searchOne(chatVO.getSellerId()); //판매자 닉네임
-		MemberVO buyerVO = memberDao.searchOne(chatVO.getBuyerId()); //구매자 닉네임
+		MemberVO sellerVO = memberDao.selectOne(chatVO.getSellerId()); //판매자 닉네임
+		MemberVO buyerVO = memberDao.selectOne(chatVO.getBuyerId()); //구매자 닉네임
 		ProductVO productVO = productDao.productone(chatVO.getProductId()); //해당 채팅방에서의 판매물품 정보 가져오기
 		OrderVO orderVO = orderDao.orderCheck(chatVO.getProductId()); //해당 상품이 이미 결제가 되었는지 여부 체크
 		DecimalFormat decFormat = new DecimalFormat("###,###");
@@ -301,5 +301,10 @@ public class ChatServiceImpl implements ChatService {
 		SimpleDateFormat simple2 = new SimpleDateFormat("HH:mm");
 		output.setTime(simple2.format(new Timestamp(System.currentTimeMillis())));
 		return output;
+	}
+	
+	public ChatVO chatSelectOne(int roomId) {
+		ChatVO chatVO = chatDao.chatRoomOne(roomId);
+		return chatVO;
 	}
 }

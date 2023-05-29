@@ -21,6 +21,16 @@ public class ProductDAO {
 		return bag;
 	}
 	
+	public int sellTimeUpdate(int productId) {
+		int result = my.update("product.sellTimeUpdate", productId);
+		return result;
+	}
+	
+	public int sellTimeDelete(int productId) {
+		int result = my.update("product.sellTimeDelete", productId);
+		return result;
+	}
+	
 	public ProductVO productDetail(int productId) {
 		ProductVO bag = my.selectOne("product.productDetail",productId);
 		return bag;
