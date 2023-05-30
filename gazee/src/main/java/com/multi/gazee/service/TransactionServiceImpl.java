@@ -51,7 +51,7 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setMemberId(chargeVO.getMemberId());
 		transactionHistoryVO.setTransactionTime(chargeVO.getTransactionTime());
 		transactionHistoryVO.setAmount(chargeVO.getAmount());
-		transactionHistoryVO.setBalance(historyDAO.select(id));
+		transactionHistoryVO.setBalance(historyDAO.select(id)+chargeVO.getAmount());
 		return historyDAO.insert(transactionHistoryVO);
 	}
 	
@@ -63,7 +63,7 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setMemberId(withdrawVO.getMemberId());
 		transactionHistoryVO.setTransactionTime(withdrawVO.getTransactionTime());
 		transactionHistoryVO.setAmount(withdrawVO.getTotalAmount());
-		transactionHistoryVO.setBalance(balance);
+		transactionHistoryVO.setBalance(balance-withdrawVO.getTotalAmount());
 		return historyDAO.insert(transactionHistoryVO);
 	};
 	
@@ -75,7 +75,7 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setMemberId(orderVO.getBuyerId());
 		transactionHistoryVO.setTransactionTime(orderVO.getPaymentTime());
 		transactionHistoryVO.setAmount(paid_amount);
-		transactionHistoryVO.setBalance(balance);
+		transactionHistoryVO.setBalance(balance-paid_amount);
 		return historyDAO.insert(transactionHistoryVO);
 	};
 	
@@ -87,9 +87,8 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setMemberId(setVO.getSellerId());
 		transactionHistoryVO.setTransactionTime(setVO.getTransactionTime());
 		transactionHistoryVO.setAmount(setVO.getAmount());
-		transactionHistoryVO.setBalance(historyDAO.select(id));
+		transactionHistoryVO.setBalance(historyDAO.select(id)+setVO.getAmount());
 		return historyDAO.insert(transactionHistoryVO);
 	};
-	
 
 }

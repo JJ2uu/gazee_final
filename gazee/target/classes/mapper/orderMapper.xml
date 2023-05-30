@@ -3,7 +3,7 @@
 <mapper namespace="order">
 
 	<insert id="insert" parameterType="orderVO">
-		insert into tb_order values (null, #{transactionId}, #{roomId}, #{dealType}, #{productId}, #{sellerId}, #{buyerId}, 1, 0, 0, 0, current_timestamp, null, null, #{address}, 0, 0);
+		insert into tb_order values (null, #{transactionId}, #{roomId}, #{dealType}, #{productId}, #{sellerId}, #{buyerId}, 1, 0, 0, 0, #{paymentTime}, null, null, #{address}, 0, 0);
 	</insert>
 	
 	<select id="check" parameterType="Integer" resultType="orderVO">

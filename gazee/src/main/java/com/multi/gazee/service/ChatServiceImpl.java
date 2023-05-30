@@ -29,6 +29,8 @@ import com.multi.gazee.order.OrderDAO;
 import com.multi.gazee.order.OrderVO;
 import com.multi.gazee.product.ProductDAO;
 import com.multi.gazee.product.ProductVO;
+import com.multi.gazee.productImage.ProductImageDAO;
+import com.multi.gazee.productImage.ProductImageVO;
 import com.multi.gazee.transactionHistory.TransactionHistoryDAO;
 
 @Service
@@ -45,6 +47,9 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Autowired
 	ProductDAO productDao;
+	
+	@Autowired
+	ProductImageDAO productImageDao;
 	
 	@Autowired
 	OrderDAO orderDao;
@@ -102,13 +107,17 @@ public class ChatServiceImpl implements ChatService {
 		List<String> nickname = new LinkedList<String>();
 		List<String> lastMessage = new LinkedList<String>();
 		List<String> lastMessageTime = new LinkedList<String>();
+		List<String> profile = new LinkedList<String>();
+		List<String> thumbnail = new LinkedList<String>();
 		for (int i = 0; i < list.size(); i++) {
 			MemberVO sellerVO = memberDao.selectOne(list.get(i).getSellerId());
 			MemberVO buyerVO = memberDao.selectOne(list.get(i).getBuyerId());
 			if (list.get(i).getBuyerId().equals(memberId)) {
 				nickname.add(sellerVO.getNickname());
+				profile.add(sellerVO.getProfileImg());
 			} else {
 				nickname.add(buyerVO.getNickname());
+				profile.add(buyerVO.getProfileImg());
 			}
 			int roomId = list.get(i).getRoomId();
 			ChatMessageVO chatMessageVO = messageDao.lastMessageList(roomId);
@@ -128,6 +137,7 @@ public class ChatServiceImpl implements ChatService {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("lastMessage", lastMessage);
 		model.addAttribute("lastMessageTime", lastMessageTime);
+		model.addAttribute("profile", profile);
 	}
 	
 	/* 해당 채팅방 입장 */
@@ -137,6 +147,14 @@ public class ChatServiceImpl implements ChatService {
 		MemberVO buyerVO = memberDao.selectOne(chatVO.getBuyerId()); //구매자 닉네임
 		ProductVO productVO = productDao.productone(chatVO.getProductId()); //해당 채팅방에서의 판매물품 정보 가져오기
 		OrderVO orderVO = orderDao.orderCheck(chatVO.getProductId()); //해당 상품이 이미 결제가 되었는지 여부 체크
+		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
+		if (productImageVO != null) {
+			String thumbnail = productImageVO.getProductImageName();
+			String thumbnailAddr = "http://erxtjrehmojx17106475.cdn.ntruss.com/"+thumbnail+"?type=f&w=60&h=60";
+			model.addAttribute("thumbnailAddr", thumbnailAddr);
+		} else {
+			model.addAttribute("thumbnailAddr", "");
+		}
 		DecimalFormat decFormat = new DecimalFormat("###,###");
 		String priceDec = decFormat.format(productVO.getPrice());
 		if (chatVO.getDealDirectDate() != null) {
@@ -177,6 +195,14 @@ public class ChatServiceImpl implements ChatService {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId);
 		ProductVO productVO = productDao.productone(chatVO.getProductId());
 		OrderVO orderVO = orderDao.orderCheck(chatVO.getProductId());
+		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
+		if (productImageVO != null) {
+			String thumbnail = productImageVO.getProductImageName();
+			String thumbnailAddr = "http://erxtjrehmojx17106475.cdn.ntruss.com/"+thumbnail+"?type=f&w=320&h=360";
+			model.addAttribute("thumbnailAddr", thumbnailAddr);
+		} else {
+			model.addAttribute("thumbnailAddr", "");
+		}
 		if (chatVO.getDealDirectDate() != null) {
 			Timestamp time = chatVO.getDealDirectDate();
 			Calendar calendar = Calendar.getInstance();
@@ -306,5 +332,10 @@ public class ChatServiceImpl implements ChatService {
 	public ChatVO chatSelectOne(int roomId) {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId);
 		return chatVO;
+	}
+	
+	public List<ChatVO> unreadMessageCheck(String memberId) {
+		List<ChatVO> list = chatDao.unreadMessageCheck(memberId);
+		return list;
 	}
 }

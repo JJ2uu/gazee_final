@@ -102,12 +102,4 @@ public class ProductVO {
 	public void setSellTime(Timestamp sellTime) {
 		this.sellTime = sellTime;
 	}
-	@Override
-	public String toString() {
-		return "ProductVO [productId=" + productId + ", category=" + category + ", memberId=" + memberId
-				+ ", productName=" + productName + ", productContent=" + productContent + ", price=" + price
-				+ ", dealDelivery=" + dealDelivery + ", dealDirect=" + dealDirect + ", directAddressx=" + directAddressx
-				+ ", directAddressy=" + directAddressy + ", productViews=" + productViews + ", temporary=" + temporary
-				+ ", savedTime=" + savedTime + ", sellTime=" + sellTime + "]";
-	}
 }

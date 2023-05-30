@@ -30,6 +30,8 @@ $(function() {
     console.log(productId);
     
     handlePageLoad(sessionId);
+    checkAndStartTimer();
+	unreadMessageCheck(sessionId);
 
     $.ajax({
         url: "productUpdateSel",

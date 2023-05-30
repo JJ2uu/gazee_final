@@ -16,7 +16,7 @@
 				<%
 					} else {
 				%>
-				<a href="gazeeMain.jsp"> 
+				<a href="../home/gazeeMain.jsp"> 
 					<img src="../resources/img/gazee_logo.png" id="logo">
 				</a>
 				<%} %>
@@ -34,7 +34,7 @@
 				%>
 				<li id="login">${id}님</li>
 				<li class= "line">|</li>
-				<li><a href="../member/logout">로그아웃</a></li>
+				<li><a href="../member/logout" onclick="LocalStorageClear()">로그아웃</a></li>
 				<li class= "line">|</li>
 				<li>고객센터</li>
 				<li class= "line">|</li>

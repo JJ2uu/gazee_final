@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="charge">
 <insert id="insert" parameterType="chargeVO">
-INSERT INTO gazee.charge VALUES(null, #{transactionId}, #{memberId}, #{transactionTime}, #{payMethod}, #{amount}, 0, 0);
+INSERT INTO gazee.charge
+(transaction_id, member_id, transaction_time, pay_method, amount, canceled)
+VALUES(#{transactionId}, #{memberId}, #{transactionTime}, #{payMethod}, #{amount}, 0);
 </insert>
 </mapper>

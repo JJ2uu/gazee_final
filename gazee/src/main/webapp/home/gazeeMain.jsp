@@ -17,10 +17,13 @@
 <script type="text/javascript">
 
 	$(function() { //body 읽어왔을때
-		var memberId = "<%= session.getAttribute("id") %>";
+		var memberId = "<%= (String)session.getAttribute("id") %>";
 		
-		handlePageLoad(memberId);
-		checkAndStartTimer();
+		if (memberId !== "null") {
+			handlePageLoad(memberId);
+			checkAndStartTimer();
+			unreadMessageCheck(memberId);
+		}
 		
 		$.ajax({
 			url : "../product/list",

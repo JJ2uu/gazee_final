@@ -39,6 +39,8 @@ $(function() {
     var sessionId = "<%= session.getAttribute("id") %>";
     
     handlePageLoad(sessionId);
+    checkAndStartTimer();
+	unreadMessageCheck(sessionId);
 	
 	$('.delivery').click(function(){
 		if (dealDelivery == 1) {

@@ -44,4 +44,6 @@ public interface ChatService {
 	ChatOutputMessageVO chatMessage(ChatMessageVO message, String roomId);
 	
 	ChatVO chatSelectOne(int roomId);
+	
+	List<ChatVO> unreadMessageCheck(String memberId);
 }

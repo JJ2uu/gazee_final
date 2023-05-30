@@ -27,6 +27,7 @@
 		var sessionId = "<%= session.getAttribute("id") %>";
 	    
 		handlePageLoad(sessionId);
+		unreadMessageCheck(sessionId);
 		
 		$.ajax({
 			url: '../order/orderCheck',

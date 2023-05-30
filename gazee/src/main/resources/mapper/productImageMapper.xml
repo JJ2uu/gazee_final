@@ -6,6 +6,10 @@
 		select * from product_image where product_id = #{productId}
 	</select>
 	
+	<select id="productImageThumbnail" resultType="ProductImageVO" parameterType="Integer">
+		select * from product_image where product_id = #{productId} AND product_image_order = 1
+	</select>
+	
 	
 	
 	<delete id="productImageDelete"  parameterType="productVO">

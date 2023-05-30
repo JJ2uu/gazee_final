@@ -39,8 +39,9 @@ $(function() {
 					<button id="btn_recentItem">목록보기</button>
 				</div>
 			</div>
+			<div id="newMessageBadge"></div>
 			<div class="recentViewItem">
-				<div class="btn_myChatlist recentViewTxt">
+				<div class="btn_myChatlist recentViewTxt" id="btn_myChatlist">
 					<img src="../resources/img/icon_chat2.svg" width="18px;">
 					채팅방
 				</div>

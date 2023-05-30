@@ -133,6 +133,21 @@
 #mail-check-warn {
 	margin-top: 5px;
 }
+#Id-Check-Btn {
+	width: 120px;
+	height: 46px;
+	background: #693FAA;
+	color: #fff;
+	border-style: none;
+	border-radius: 4px;
+	cursor: pointer;
+	
+}
+.idBox {
+	width: 100%;
+	display: flex;
+	gap: 5px;
+}
 </style>
 <title>가지가지</title>
 </head>
@@ -150,7 +165,10 @@
 					</div>
 						<div class="input_signUp">
 							<label class="nametag">아이디<span class="star">*</span></label>
-							<input type="text" id="id" class="form-control" placeholder="아이디" >
+							<div class="idBox">
+								<input type="text" id="id" class="form-control" placeholder="아이디" >
+								<button type="button" id="Id-Check-Btn">중복확인</button>
+							</div>
 						</div>
 						<div class="input_signUp">
 							<label class="nametag">비밀번호<span class="star">*</span></label>

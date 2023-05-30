@@ -17,6 +17,11 @@ public class ProductImageDAO {
 		return bag;
 	}
 	
+	public ProductImageVO productImageThumbnail(int productId) {
+		ProductImageVO bag = my.selectOne("productImage.productImageThumbnail",productId);
+		return bag;
+	}
+	
 	public void productImageDelete(ProductVO product) {
 		int result = my.delete("productImage.productImageDelete", product);
 		System.out.println(result);

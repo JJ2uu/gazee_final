@@ -55,14 +55,6 @@ public class OrderServiceImpl implements OrderService{
 	
 	public OrderVO orderCheck(int productId) {
 		OrderVO orderVO = orderDao.orderCheck(productId);
-	    if (orderVO != null) {
-	        Timestamp paymentTime = orderVO.getPaymentTime();
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.setTime(paymentTime);
-	        calendar.add(Calendar.HOUR_OF_DAY, -9);
-	        Timestamp newPaymentTime = new Timestamp(calendar.getTimeInMillis());
-	        orderVO.setPaymentTime(newPaymentTime);
-	    }
 		return orderVO;
 	}
 	

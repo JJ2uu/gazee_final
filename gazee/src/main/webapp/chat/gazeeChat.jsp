@@ -26,6 +26,7 @@
 	$(function() {
 		handlePageLoad(memberId);
 		checkAndStartTimer();
+		unreadMessageCheck(memberId);
 		
 		/* 채팅 내역 불러오는 함수 */
 		function getChatHistory(roomId) {
@@ -72,7 +73,7 @@
 
 					for (let i = 0; i < li.length; i++) {
 						li[i].addEventListener('click', function() {
-							
+						
 						/* 해당 채팅방 클릭시 빨간 뱃지 삭제 */
 						const liId = li[i].getAttribute('id');
 						let liElement = document.getElementById(liId);
@@ -95,7 +96,7 @@
 									$("#chatMessageText").keyup(function(event) {
 										if (event.which == 13) {
 									        event.preventDefault();
-									        sendMessage(roomId);
+									        sendChatMessage(roomId);
 									        $(this).val('');
 									    }
 									})
@@ -103,7 +104,7 @@
 									/* 채팅전송 클릭이벤트 */
 									let btn_chatSend = $('.chat_send');
 									btn_chatSend.click(function() {
-										sendMessage(roomId);
+										sendChatMessage(roomId);
 									});
 									
 									/* 햄버거 토글 메뉴 */
@@ -299,7 +300,7 @@
 				
 				/* 내 보유 가지씨앗 가져오기 */
 				$.ajax({
-					url: '../transactionHistory/checkBalance',
+					url: '../pay/record',
 					data: {
 						memberId: buyerId
 					},
@@ -362,16 +363,10 @@
 	function orderDone() {
 		alert('이미 결제되었습니다.')
 	}
-	
 </script>
 <style>
 	body {
 		background-color: #fafafa;
-	}
-	
-	.chatPartnerProfile {
-		background-image: url("https://github.com/JJ2uu/JJ2uu/blob/main/images/profile.jpg?raw=true");
-		background-size: 40px;
 	}
 </style>
 <title>가지가지</title>
@@ -382,7 +377,7 @@
 	<div id="header">
 		<jsp:include page="../home/Header.jsp" flush="true"/>
 	</div>
-	<jsp:include page="../pay/charge.jsp" flush="true"/>
+	<jsp:include page="../pay/chatCharge.jsp" flush="true"/>
 	<div id="gazeepay_modal">
 		<div class="gazeepay_modal_body">
 			<div class="btn_gazeepay_modal_close">

@@ -23,7 +23,11 @@ $(function() {
     var memberId = "<%=memberId%>"; // memberId 가져오기
     var sessionId = "<%= session.getAttribute("id") %>";
     
-    handlePageLoad(sessionId);
+    if (memberId !== "null") {
+		handlePageLoad(memberId);
+		checkAndStartTimer();
+		unreadMessageCheck(memberId);
+	}
     
     if (memberId === sessionId) {
         $.ajax({

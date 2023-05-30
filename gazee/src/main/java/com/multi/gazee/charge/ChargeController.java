@@ -26,7 +26,7 @@ public class ChargeController {
 	@Autowired
 	TransactionService transactionService;
 	
-	@RequestMapping(value="charge/charge", method = {RequestMethod.POST})
+	@RequestMapping(value="pay/charge", method = {RequestMethod.POST})
 	public void payCharge(ChargeVO charge, HttpSession session, HttpServletResponse response) {
 		int transactionResult = 0;
 		int chargeResult = 0;
