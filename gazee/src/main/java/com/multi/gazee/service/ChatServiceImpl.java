@@ -108,7 +108,6 @@ public class ChatServiceImpl implements ChatService {
 		List<String> lastMessage = new LinkedList<String>();
 		List<String> lastMessageTime = new LinkedList<String>();
 		List<String> profile = new LinkedList<String>();
-		List<String> thumbnail = new LinkedList<String>();
 		for (int i = 0; i < list.size(); i++) {
 			MemberVO sellerVO = memberDao.selectOne(list.get(i).getSellerId());
 			MemberVO buyerVO = memberDao.selectOne(list.get(i).getBuyerId());
@@ -150,7 +149,7 @@ public class ChatServiceImpl implements ChatService {
 		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
 		if (productImageVO != null) {
 			String thumbnail = productImageVO.getProductImageName();
-			String thumbnailAddr = "http://erxtjrehmojx17106475.cdn.ntruss.com/"+thumbnail+"?type=f&w=60&h=60";
+			String thumbnailAddr = "http://awswlqccbpkd17595311.cdn.ntruss.com/"+thumbnail+"?type=f&w=60&h=60";
 			model.addAttribute("thumbnailAddr", thumbnailAddr);
 		} else {
 			model.addAttribute("thumbnailAddr", "");
@@ -198,7 +197,7 @@ public class ChatServiceImpl implements ChatService {
 		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
 		if (productImageVO != null) {
 			String thumbnail = productImageVO.getProductImageName();
-			String thumbnailAddr = "http://erxtjrehmojx17106475.cdn.ntruss.com/"+thumbnail+"?type=f&w=320&h=360";
+			String thumbnailAddr = "http://awswlqccbpkd17595311.cdn.ntruss.com/"+thumbnail+"?type=f&w=320&h=360";
 			model.addAttribute("thumbnailAddr", thumbnailAddr);
 		} else {
 			model.addAttribute("thumbnailAddr", "");

@@ -25,5 +25,4 @@ public class OrderController {
 		OrderVO orderVO = orderService.orderCheck(productId);
 		return orderVO;
 	}
-
 }

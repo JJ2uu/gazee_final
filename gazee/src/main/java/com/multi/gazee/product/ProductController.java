@@ -1,11 +1,13 @@
 package com.multi.gazee.product;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import com.multi.gazee.productImage.ProductImageDAO;
 import com.multi.gazee.productImage.ProductImageVO;
 import com.multi.gazee.reportCount.ReportCountDAO;
 import com.multi.gazee.reportCount.ReportCountVO;
+import com.multi.gazee.scheduler.ProductScheduler;
 
 @Controller
 public class ProductController {
@@ -28,6 +31,12 @@ public class ProductController {
 	@Autowired
 	ReportCountDAO dao3;
 	
+	@Autowired
+	ProductScheduler productScheduler;
+	
+	@Autowired
+	private TaskScheduler taskScheduler;
+	
 	@RequestMapping("product/productOne")
 	@ResponseBody
 	public ProductVO productOne(int productId) {
@@ -39,6 +48,9 @@ public class ProductController {
 	@ResponseBody
 	public int sellTimeUpdate(int productId) {
 		int result = dao.sellTimeUpdate(productId);
+		productScheduler.setProductId(productId);
+		// 스케줄러를 다시 시작
+	    taskScheduler.schedule(() -> productScheduler.scheduleSellTimeUpdate(), new Date(System.currentTimeMillis() + 10 * 60 * 1000));
 		return result;
 	}
 	

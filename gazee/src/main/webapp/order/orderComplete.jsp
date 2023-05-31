@@ -102,6 +102,20 @@
 						console.log(error)
 					}
 				})
+				
+				$.ajax({
+					url: '../productImage/productImageThumbnail',
+					data: {
+						productId : productId
+					},
+					success: function(result) {
+						console.log(result)
+						const thumbnailAddr = result;
+						console.log(thumbnailAddr)
+						let order_productThumbnail = document.getElementById("order_productThumbnail");
+						order_productThumbnail.style.backgroundImage = "url('"+result+"')";
+					}
+				})
 			},
 			error: function(error) {
 				console.log(error)
@@ -129,7 +143,7 @@
 			</div>
 			<hr style="margin: 40px 0">
 			<div id="order_productInfo">
-				<div class="order_productThumbnail"></div>
+				<div id="order_productThumbnail"></div>
 				<div class="order_productText">
 					<div id="order_category"></div>
 					<div id="order_productName"></div>

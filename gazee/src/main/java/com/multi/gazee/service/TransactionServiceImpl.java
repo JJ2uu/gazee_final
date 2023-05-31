@@ -53,6 +53,7 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setAmount(chargeVO.getAmount());
 		transactionHistoryVO.setBalance(historyDAO.select(id)+chargeVO.getAmount());
 		return historyDAO.insert(transactionHistoryVO);
+//		return transactionHistoryVO;
 	}
 	
 	@Override
@@ -90,5 +91,6 @@ public class TransactionServiceImpl implements TransactionService{
 		transactionHistoryVO.setBalance(historyDAO.select(id)+setVO.getAmount());
 		return historyDAO.insert(transactionHistoryVO);
 	};
+	
 
 }
