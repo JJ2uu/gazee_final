@@ -46,7 +46,6 @@ public class ProductDAO {
 	public int register(ProductVO product) {
 		product.setSavedTime(getTime());
 		int result = my.insert("product.register", product);
-		System.out.println("myBatis 처리, DAO 완료");
 		return result;
 	}
 	
@@ -66,17 +65,14 @@ public class ProductDAO {
 	
 	public void productUpdate(ProductVO product) {
 		product.setSavedTime(getTime());
-		int result = my.update("product.productUpdate", product);
-		System.out.println(result);
+		my.update("product.productUpdate", product);
 	}
 	
 	public void productDelete(ProductVO product) {
-		int result = my.delete("product.productDelete", product);
-		System.out.println(result);
+		my.delete("product.productDelete", product);
 	}
 	public ProductVO checkTemporaryProduct (ProductVO product) {
 		ProductVO bag = my.selectOne("product.checkTemporaryProduct",product);
-		System.out.println(bag);
 		return bag;
 	}
 

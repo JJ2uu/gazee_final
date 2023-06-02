@@ -22,8 +22,14 @@
 		select * from product
 	</select>
 	
-	<insert id="register" parameterType="productVO">
-		INSERT INTO product (member_id, category, product_name, product_content, price, deal_direct, `direct_addressx`, `direct_addressy`, deal_delivery, product_views, temporary, `saved_time`) VALUES(#{memberId}, #{category}, #{productName}, #{productContent}, #{price}, #{dealDirect}, #{directAddressx}, #{directAddressy}, #{dealDelivery}, 0, #{temporary}, #{savedTime});
+	<insert id="register" parameterType="productVO" useGeneratedKeys="true" keyProperty="productId">
+		INSERT INTO product
+		(member_id, category, product_name, product_content, price, deal_direct,
+		`direct_addressx`, `direct_addressy`, deal_delivery,
+		product_views, temporary, `saved_time`)
+		VALUES(#{memberId}, #{category}, #{productName}, #{productContent}, #{price},
+		#{dealDirect}, #{directAddressx}, #{directAddressy}, #{dealDelivery},
+		0, #{temporary}, #{savedTime});
 	</insert>
 	
 	<update id="productUpdate" parameterType="productVO">

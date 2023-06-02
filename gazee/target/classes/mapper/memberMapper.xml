@@ -13,7 +13,10 @@
 	<update id="logoutTimeUpdate" parameterType="String">
 		update member set logout_time = current_timestamp where id = #{id}
 	</update>
-
+	
+	<select id="purchsList" parameterType="String" resultType="orderVO"> select * from tb_order where buyer_id = #{id} </select>
+<!--   05-1 23:03 add  -->
+<select id="sellList" parameterType="String" resultType="orderVO"> select * from tb_order where seller_id = #{id} </select>
 </mapper>
 
 

@@ -328,11 +328,13 @@ public class ChatServiceImpl implements ChatService {
 		return output;
 	}
 	
+	/* 채팅방 selectOne */
 	public ChatVO chatSelectOne(int roomId) {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId);
 		return chatVO;
 	}
 	
+	/* 안읽은 메세지 체크 */
 	public List<ChatVO> unreadMessageCheck(String memberId) {
 		List<ChatVO> list = chatDao.unreadMessageCheck(memberId);
 		return list;

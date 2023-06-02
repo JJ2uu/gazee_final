@@ -15,11 +15,12 @@
 <script type="text/javascript" src="../resources/js/WebSocket.js"></script>
 <script type="text/javascript">
 	$(function() {
-		var sessionId = "<%= session.getAttribute("id") %>";
-	    
-		handlePageLoad(sessionId);
-		unreadMessageCheck(sessionId);
-		checkAndStartTimer();
+		var memberId = "<%= (String)session.getAttribute("id") %>";
+		
+		if (memberId !== "null") {
+			handlePageLoad(memberId);
+			unreadMessageCheck(memberId);
+		}
 	})
 </script>
 <title>가지가지</title>
@@ -80,15 +81,16 @@
 					<div style="display: flex;">
 						<div style="width: 5px; background: #693faa; margin-right: 10px;"></div>
 						<span class="guide_step_no">Step 2.</span>
-						<span class="guide_step">협의가 이루어지면 [판매하기] 버튼을 눌러 결제를 요청해요</span>
+						<span class="guide_step">협의가 이루어지면 판매자가 [판매하기] 버튼을 눌러 구매자에게 결제를 요청해요</span>
 					</div>
 					<div class="guide_step_img"></div>
 					
-					<div style="display: flex;">
+					<div style="display: flex; margin-bottom: 10px;">
 						<div style="width: 5px; background: #693faa; margin-right: 10px;"></div>
 						<span class="guide_step_no">Step 3.</span>
-						<span class="guide_step">택배거래시 결제가 완료되면 판매자는 운송장번호를 [마이페이지]에서 입력해 주세요</span>
+						<span class="guide_step">결제가 완료되면 판매자는 구매 내역은 [마이페이지]에서 확인해요</span>
 					</div>
+					<span class="guide_content_detail" style="padding-left: 24px;">*택배거래 시 판매자는 [마이페이지]에서 운송장번호를 입력해주세요!</span>
 					<div class="guide_step_img"></div>
 					
 					<div style="display: flex; margin-bottom: 10px;">

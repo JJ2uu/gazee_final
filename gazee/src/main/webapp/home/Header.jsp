@@ -32,7 +32,7 @@
 				<%
 					if(id!=null){
 				%>
-				<li id="login">${id}님</li>
+				<li id="login"><a href="../member/mypage.jsp" style="color: #693faa">${id}님</a></li>
 				<li class= "line">|</li>
 				<li><a href="../member/logout" onclick="LocalStorageClear()">로그아웃</a></li>
 				<li class= "line">|</li>

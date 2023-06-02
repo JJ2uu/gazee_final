@@ -16,12 +16,11 @@
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
 <script type="text/javascript">
 
-	$(function() { //body 읽어왔을때
+	$(function() {
 		var memberId = "<%= (String)session.getAttribute("id") %>";
 		
 		if (memberId !== "null") {
 			handlePageLoad(memberId);
-			checkAndStartTimer();
 			unreadMessageCheck(memberId);
 		}
 		
@@ -34,23 +33,6 @@
 		
 		$('#btn_trackingNo').click(function() {
 			trackingNoFinished(memberId, 1);
-		})
-		
-		$('#register').click(function() {
-			//임시저장이 된(temporary가 0인) product가 있으면 임시저장된것을 불러올지 임시저장한 product를 삭제할지 묻고 임시저장을 불러온다하면 productUpdateSel로 아니면 productDelete로처리하고 register.jsp로 이동
-			$.ajax({
-				url : "../product/checkTemporaryProduct",
-				data : {
-					memberId : memberId,
-				},
-	            success: function(response) {
-	                $('#result').html(response);
-	            },
-			    error: function(xhr, status, error) {
-			    	// 임시저장된 product가 없을 경우 register.jsp로 이동
-			        location.href = "../product/register.jsp?memberId=" + memberId;
-		        } 
-			})
 		})
 	})
 </script>
@@ -65,7 +47,6 @@
 		<div id="content_wrap">
 			<div id="content">
 				<div>
-					<button id="register">판매하기</button>
 					<button id="btn_trackingNo">운송장번호 입력</button>
 					<div id="result"></div>
 				</div>
