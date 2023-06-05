@@ -5,11 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="../resources/css/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
 <script type="text/javascript" src="../resources/js/stomp.js"></script>
@@ -17,41 +14,34 @@
 <script type="text/javascript">
 	$(function() {
 		$('#b1').click(function() {
-			let id2 = $('#id').val();
-			let pw2 = $('#pw').val();
+			var id = $('#id').val();
+			var pw = $('#pw').val();
 			
-			if(id2 != '') {
-				if(pw2 != ''){
+			if(id != '') {
+				if(pw != ''){
 					$.ajax({
 						url:"login",
 						type:'post',
 						data:{
-							id: id2,
-							pw: pw2
+							id: id,
+							pw: pw
 						},
-						success: function(data) {
-							if (data.id == 'no') {
-								alert("로그인 오류발생");
-							} else {
-								//alert("로그인 성공");
-								$.ajax({
-									url: '../chat/myChatRoomIds',
-									data: {
-										memberId: id2
-									},
-									success: function(roomIds) {
-										subscribeToChatRooms(roomIds);
-										location.href ="../home/gazeeMain.jsp"
-									},
-									error: function(e) {
-										console.log(e)
-									}
-								})
-							}
+						success: function(result) {
+							console.log(result)
+							$.ajax({
+								url: '../chat/myChatRoomIds',
+								data: {
+									memberId: id
+								},
+								success: function(roomIds) {
+									subscribeToChatRooms(roomIds);
+									location.href = document.referrer;
+								},
+								error: function(e) {
+									console.log(e)
+								}
+							})
 						},//success
-						error: function(){
-							alert("서버연결 실패")
-						}
 					})//ajax
 				}else {
 					alert("비밀번호를 입력해주세요");
@@ -61,52 +51,61 @@
 			}
 		})
 	})
-	</script>
+</script>
 <style>
-<!--
-body {
-	text-align: center;
-}
-
-div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	padding: 30px;
-	background-color: #6f42c1;
-	border-radius: 30px;
-	text-align: center;
-}
-
-.form-control {
-	margin: 10px;
-}
--->
+	body {
+		text-align: center;
+	} 
+	
+	 #loginbox {	
+		display: flex;
+		flex-flow : column;
+		align-items: center;
+		gap : 10px;
+	}
+	
+	.container  {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+	}
+	
+	.form-control {
+		margin: 10px;
+	}
+	
+	button{
+		border-style: none;
+		border-radius: 3px;
+	}
 </style>
 </head>
 <body>
-	<div id="newMessagePushAlarm"></div>
-	<h3 class="container" style="color: #6f42c1">로그인 화면입니다.</h3>
-	<hr color="#6f42c1">
-	<img src="../resources/img/gazee_logo.png" style="width: 300px" height="100">
-		<div class="container">
-			<label for="usr" style="color: #ffc107" style="width:18px;text-align:right;">아이디:</label> 
-			    <input id="id" type="text" value="root" class="form-control" name="id" style="width: 350px"style="text-align:center;"> 
-				<label for="pw" style="color: #ffc107">비밀번호:</label> 
-				<input id="pw"   value="1234" type="password" class="form-control" name="pw" style="width: 350px"style="width:-600px">
-				 <label> </label>
-			<label></label><br>
-			<button id="b1"  class="btn btn-primary btn-lg"
-				style="background: #ffc107">서버로 전송</button>
-			<br>
+	<div id="wrap">
+		<div id="newMessagePushAlarm"></div>
+		<div id="header">
+			<jsp:include page="../home/Header.jsp" flush="true"/>
 		</div>
-		<label></label><br>
-		<button type="button" class="btn btn-primary btn-sm"
-			style="background: #6f42c1" onClick="location.href='findpw.jsp'">비밀번호 찾기</button>
-		<button type="button" class="btn btn-primary btn-sm"
-			style="background: #6f42c1" onClick="location.href='findid.jsp'">아이디 찾기</button>
-		<button type="button" class="btn btn-primary btn-sm"
-			style="background: #6f42c1" onClick="location.href='signup.jsp'">회원가입</button>
+		<div id="content_wrap">
+			<div id="content">
+		     	<div id="loginbox" >
+		<h2>로그인</h2>
+		<!-- <div class="container"> -->
+			    <input id="id" type="text"  placeholder="아이디를 입력해주세요." style="width: 350px; height: 40px; background: #F6F6F6"> 
+				<input id="pw" type="password" placeholder="비밀번호를 입력해주세요." style="width: 350px; height: 40px; background: #F6F6F6">			
+			<!-- <button type="submit" class="container" style="width:-50px">서버로 전송</button>-->
+			
+			<button id="b1" style="width: 350px; height: 40px; background : #693FAA; color: #FFF; cursor: pointer;">로그인</button>				
+			<button type="button" style="background: #F6F6F6; width: 350px; height: 40px; font-style: #6f42c1; cursor: pointer;" onClick="location.href='signup.jsp'">회원가입</button>
+			<br>
+                </div>
+					<button type="button" 
+					style="background: #FFFFFF; cursor: pointer;" onClick="location.href='findpw.jsp'">비밀번호 찾기</button>
+					<button type="button" 
+					style="background: #FFFFFF; cursor: pointer;" onClick="location.href='findid.jsp'">아이디 찾기</button>
+			</div>
+		</div>
+	<jsp:include page="../home/Footer.jsp" flush="true"/>
+	</div>
 </body>
 </html>

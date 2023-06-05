@@ -144,7 +144,7 @@ public class ChatServiceImpl implements ChatService {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId); //채팅방 정보 가져오기
 		MemberVO sellerVO = memberDao.selectOne(chatVO.getSellerId()); //판매자 닉네임
 		MemberVO buyerVO = memberDao.selectOne(chatVO.getBuyerId()); //구매자 닉네임
-		ProductVO productVO = productDao.productone(chatVO.getProductId()); //해당 채팅방에서의 판매물품 정보 가져오기
+		ProductVO productVO = productDao.productOne(chatVO.getProductId()); //해당 채팅방에서의 판매물품 정보 가져오기
 		OrderVO orderVO = orderDao.orderCheck(chatVO.getProductId()); //해당 상품이 이미 결제가 되었는지 여부 체크
 		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
 		if (productImageVO != null) {
@@ -192,7 +192,7 @@ public class ChatServiceImpl implements ChatService {
 	/* 채팅방 내 결제시스템 */
 	public void chatPaymentModal(int roomId, Model model) {
 		ChatVO chatVO = chatDao.chatRoomOne(roomId);
-		ProductVO productVO = productDao.productone(chatVO.getProductId());
+		ProductVO productVO = productDao.productOne(chatVO.getProductId());
 		OrderVO orderVO = orderDao.orderCheck(chatVO.getProductId());
 		ProductImageVO productImageVO = productImageDao.productImageThumbnail(chatVO.getProductId());
 		if (productImageVO != null) {

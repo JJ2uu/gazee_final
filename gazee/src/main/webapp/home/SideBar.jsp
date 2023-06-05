@@ -5,6 +5,7 @@
 %>
 <script type="text/javascript">
 $(function() {
+	var sessionId = "<%= session.getAttribute("id") %>";
 	/* 최근 본 상품 목록 */
 	$('#btn_recentItem').click(function() {
 		location.href = "../recentlyViewed/recentlyViewedList.jsp"
@@ -17,23 +18,26 @@ $(function() {
 	
 	/* 판매하기 버튼 */
 	$(".btn_sell").click(function() {
-		const sessionId = "<%= session.getAttribute("id") %>";
-		//임시저장이 된(temporary가 0인) product가 있으면 임시저장된것을 불러올지 임시저장한 product를 삭제할지 묻고 임시저장을 불러온다하면 productUpdateSel로 아니면 productDelete로처리하고 register.jsp로 이동
+		location.href = "../product/checkTemporaryProduct?memberId=" + sessionId;
+	})
+	
+	if(sessionId != "null"){ //사용자가 로그인했을때
+		/* 최근 본 상품 숫자 */
 		$.ajax({
-			url : "../product/checkTemporaryProduct",
+			url : "../recentlyViewed/recentViewCount",
 			data : {
 				memberId : sessionId
 			},
-			success: function(response) {
-				$('#result').html(response);
-			},
-			error: function(xhr, status, error) {
-				// 임시저장된 product가 없을 경우 register.jsp로 이동
-				location.href = "../product/register.jsp?memberId=" + sessionId;
-			} 
+			success : function(res) {
+				$('.viewCount').append(res)
+			}
 		})
-	})
+	}
+	
 })
+function chatBotOpen() {
+	window.open("../home/chatBot.jsp","_blank", "width=500, height=665");
+}
 </script>
 <link rel="stylesheet" href="../resources/css/style.css" type="text/css">
 		<%
@@ -64,7 +68,7 @@ $(function() {
 				</div>
 			</div>
 			<div class="recentViewItem">
-				<div class="btn_chatBot recentViewTxt">
+				<div class="btn_chatBot recentViewTxt" onclick='chatBotOpen()'>
 					<img src="../resources/img/icon_bot.svg" width="20px;">
 					챗봇상담
 				</div>

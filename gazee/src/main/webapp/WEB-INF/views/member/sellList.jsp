@@ -10,6 +10,17 @@ $(function() {
 	var btnClose = document.getElementById('btnClose');
 	var btnInvoice = document.getElementById('btnInvoice');
 	
+	/* 운송장번호 입력완료 메세지 */
+	function trackingNoFinished(memberId, roomId) {
+		let sender = memberId;
+		let content = "운송장번호 등록완료";
+		
+		stompClient.send('/app/chat/'+roomId, {}, JSON.stringify({
+			'sender' : sender,
+			'content' : content
+		}));
+	}
+	
 	
 	// modal 창을 감춤
 	var closeRtn = function() {
@@ -39,9 +50,9 @@ $(function() {
 	 		
 		    var url = "";
 		    
-		    if (deliveryCom == "CJ") {
+		    if (deliveryCom == "CJ대한통운") {
 		    	url ="http://nplus.doortodoor.co.kr/web/detail.jsp?slipno="+trackingNo;
-			}else if (deliveryCom == "HanJin") {
+			}else if (deliveryCom == "한진택배") {
 				url ="https://www.hanjin.co.kr/kor/CMS/DeliveryMgr/WaybillResult.do?mCode=MN038&schLang=KR&wblnumText2="+trackingNo;
 			}else {
 				url ="https://www.ilogen.com/m/personal/trace/"+trackingNo;
@@ -54,11 +65,9 @@ $(function() {
 	
 	$("#btnInvoice").click(function() {
 	 var deliveryCom = $('#deliveryCom option:selected').val();
-	 console.log(deliveryCom)
 	 const trackingNo = document.getElementById("trackingNo").value;
-	 console.log(trackingNo)
 	 	 
-	 $.ajax({
+		 $.ajax({
 		    url: "trackingNo",
 		    data: {
 		        no: modal_id,
@@ -66,10 +75,21 @@ $(function() {
 		        trackingNo: trackingNo
 		    },
 		    success: function(response) {
-		        console.log(response);
 		        var trackingInfo = response; // 응답으로 받은 트래킹 정보
 		        var b7 = document.getElementById("b7");
 		        b7.innerText = trackingInfo;
+		        $.ajax({
+					url: '../order/getOrderInfo',
+					data: {
+						no: modal_id
+					},
+					success: function(response) {
+						memberId = response.sellerId;
+						roomId = response.roomId;
+						trackingNoFinished(memberId, roomId);
+						location.reload();
+					}
+				})
 		    },
 		    error: function() {
 		        console.log("오류 발생");

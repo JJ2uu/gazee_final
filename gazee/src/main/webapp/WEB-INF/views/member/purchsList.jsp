@@ -39,10 +39,8 @@
 			<td>${vo.productId}</td>
 			<td>${vo.buyerId}</td>
 			<td>${vo.sellerId}</td>
-			<%-- <td>${vo.paid}</td> --%>
 			<td>${vo.sellerConfirm}</td>
 			<td> <button id="buyerCon" >구매확정</button></td>
-			
 		</tr>
 		</c:forEach>
 		</tbody>

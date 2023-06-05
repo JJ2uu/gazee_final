@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService{
 	public int orderComplete(OrderVO orderVO) {
 		ChatVO chatBag = chatDao.chatRoomOne(orderVO.getRoomId());
 		MemberVO memberVO = memberDao.selectOne(chatBag.getBuyerId());
-		ProductVO productVO = productDao.productone(chatBag.getProductId());
+		ProductVO productVO = productDao.productOne(chatBag.getProductId());
 		
 		orderVO.setDealType(chatBag.getDealType());
 		orderVO.setProductId(chatBag.getProductId());
@@ -52,6 +52,11 @@ public class OrderServiceImpl implements OrderService{
 	
 	public OrderVO orderCheck(int productId) {
 		OrderVO orderVO = orderDao.orderCheck(productId);
+		return orderVO;
+	}
+	
+	public OrderVO getOrderInfo(int no) {
+		OrderVO orderVO = orderDao.getOrderInfo(no);
 		return orderVO;
 	}
 	

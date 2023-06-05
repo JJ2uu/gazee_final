@@ -18,7 +18,7 @@
 		INSERT INTO product_image
 		(product_id, product_image_name, product_image_order)
 		VALUES(#{productId}, #{productImageName}, #{productImageOrder});
-	</insert>	
+	</insert>
 
 </mapper>
 

@@ -3,9 +3,6 @@
 <%
 	int productId = Integer.parseInt(request.getParameter("productId").trim());
 %>
-<%
-	String memberId = request.getParameter("memberId");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +17,43 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
-	    var memberId = "<%=memberId%>"; // memberId 가져오기
+		var memberId; // memberId 가져오기
 	    var sessionId = "<%= session.getAttribute("id") %>";
+		
+		$.ajax({
+			url : "viewsCount",
+			data : {
+				productId : '<%=productId%>'
+			},
+			success : function(res) {
+				//console.log(res)
+			}
+		})
+		$.ajax({
+			url : "checkSeller",
+			async : false,
+			data : {
+				productId : '<%=productId%>'
+			},
+			success : function(res) {
+				memberId = res;
+			}
+		})
 		
 		if (memberId !== "null") {
 			handlePageLoad(sessionId);
 			unreadMessageCheck(sessionId);
+			
+			$.ajax({
+				url : "../recentlyViewed/recentView",
+				data : {
+					productId : '<%=productId%>',
+					memberId : sessionId
+				},
+				success : function(res) {
+					console.log(res)
+				}
+			})
 		}
 	
 	    if (memberId === sessionId) {
@@ -38,7 +66,7 @@
 	            success: function(res) {
 	                $('#product_table').append(res);
 	            }
-	        });
+	        })
 	    } else {
 	        $.ajax({
 	            url: "detail", // memberId와 sessionId가 다를 때의 URL

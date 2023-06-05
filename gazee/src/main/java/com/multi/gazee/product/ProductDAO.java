@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,7 +19,62 @@ public class ProductDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	public ProductVO productone(int productId) {
+	public List<ProductVO> best() {
+		List<ProductVO> list = my.selectList("product.best");
+		return list;
+	}
+
+	public List<ProductVO> userBest(String memberId) {
+		List<ProductVO> list = my.selectList("product.userBest",memberId);
+		return list;
+	}
+	
+	public List<ProductVO> wekaBest(String category) {
+		List<ProductVO> list = my.selectList("product.wekaBest",category);
+		return list;
+	}
+	
+	public List<ProductVO> searchAll(HashMap<String, Object> map) {
+		return my.selectList("product.searchAll", map);
+	}
+
+	public List<ProductVO> searchAllOnSale(HashMap<String, Object> map) {
+		return my.selectList("product.searchAllOnSale", map);
+	}
+
+	public List<ProductVO> categoryAll(HashMap<String, Object> map) {
+		return my.selectList("product.categoryAll", map);
+	}
+
+	public List<ProductVO> categoryAllOnSale(HashMap<String, Object> map) {
+		return my.selectList("product.categoryAllOnSale", map);
+	}
+	
+	public int countSearch(String search) {
+		return my.selectOne("product.countSearch",search);
+	} 
+
+	public int countSearchOnSale(String search) {
+		return my.selectOne("product.countSearchOnSale",search);
+	} 
+
+	public int countCategory(String category) {
+		return my.selectOne("product.countCategory",category);
+	}
+
+	public int countCategoryOnSale(String category) {
+		return my.selectOne("product.countCategoryOnSale",category);
+	}
+	
+	public int viewsCount(int productId) {
+		return my.update("product.viewsCount", productId);
+	}
+	
+	public String checkSeller(int productId) {
+		return my.selectOne("product.checkSeller",productId);
+	} 
+	
+	public ProductVO productOne(int productId) {
 		ProductVO bag = my.selectOne("product.productOne", productId);
 		return bag;
 	}

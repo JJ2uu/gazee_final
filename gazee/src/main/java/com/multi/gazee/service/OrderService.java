@@ -7,4 +7,6 @@ public interface OrderService {
 	int orderComplete(OrderVO orderVO);
 	
 	OrderVO orderCheck(int productId);
+	
+	OrderVO getOrderInfo(int no);
 }

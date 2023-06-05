@@ -25,4 +25,11 @@ public class OrderController {
 		OrderVO orderVO = orderService.orderCheck(productId);
 		return orderVO;
 	}
+	
+	@RequestMapping("order/getOrderInfo")
+	@ResponseBody
+	public OrderVO getOrderInfo(int no) {
+		OrderVO orderVO = orderService.getOrderInfo(no);
+		return orderVO;
+	}
 }

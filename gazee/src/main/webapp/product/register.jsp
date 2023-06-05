@@ -135,9 +135,8 @@
 						temporary : save
 					},
 					success : function(x) {
-						
+						uploadFiles();
 						if(save==1) {
-							uploadFiles();
 							alert("판매글을 등록했습니다.")
 						}else if(save==0) {
 							alert("글을 임시저장했습니다.")

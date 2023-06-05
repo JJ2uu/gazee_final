@@ -4,20 +4,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="short icon" href="#">
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet" type="text/css">
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>   
+<link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>   
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/WebSocket.js"></script>
+<script type="text/javascript" src="../resources/js/sockjs-0.3.4.js"></script>
+<script type="text/javascript" src="../resources/js/stomp.js"></script>
 <script type="text/javascript">
 	  $(function() { 
 		
 		 var session = '<%= session.getAttribute("id")%>'
-		 console.log(session) 
+		 console.log(session)
+		 
+		 if (session !== "null") {
+			/* 웹소켓 연결 */
+			handlePageLoad(session);
+			
+			/* 안 읽은 메세지 체크 */
+			unreadMessageCheck(session);
+		 }
 		
 		$('document').ready(function() {
 			$.ajax({
@@ -37,7 +48,6 @@
 				id: session
 			},
 			success: function(result) {
-				console.log(result)
 				let userProfile = document.getElementById('userProfile');
 				userProfile.style.backgroundImage = result;
 				userProfile.style.backgroundRepeat = 'no-repeat';
@@ -65,7 +75,6 @@
 					id : session
 				},
 				success : function(result) {
-					console.log(result)
 					$('.container').append(result)
 				}
 			})
@@ -78,7 +87,6 @@
 					id : session
 				},
 				success : function(result) {
-					// console.log(result)
 					$('.container').append(result)
 				}
 			})
@@ -209,6 +217,10 @@ th, td {
   text-decoration: none;
   cursor :pointer; 
 }
+
+input[id="hamburger"]+label {
+	top: 5px;
+}
 </style>
 <title>가지가지</title>
 </head>
@@ -258,6 +270,7 @@ th, td {
 				<div class="container" style="margin-top: 30px"></div>
 			</div>
 		</div>
+		<jsp:include page="../home/SideBar.jsp" flush="true"/>
 		<jsp:include page="../home/Footer.jsp" flush="true" />
 	</div>
 </body>

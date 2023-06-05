@@ -9,6 +9,10 @@
 	<select id="check" parameterType="Integer" resultType="orderVO">
 		select * from tb_order where product_id = #{productId} order by canceled DESC limit 1
 	</select>
+	
+	<select id="getOrderInfo" parameterType="Integer" resultType="orderVO">
+		select * from tb_order where no = #{no}
+	</select>
 
 </mapper>
 

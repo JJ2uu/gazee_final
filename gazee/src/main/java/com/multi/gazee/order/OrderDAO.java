@@ -44,4 +44,9 @@ public class OrderDAO {
 		}
 		return orderVO;
 	}
+	
+	public OrderVO getOrderInfo(int no) {
+		OrderVO orderVO = my.selectOne("order.getOrderInfo", no);
+		return orderVO;
+	}
 }
