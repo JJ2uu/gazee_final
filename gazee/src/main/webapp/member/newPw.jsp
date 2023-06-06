@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet" type="text/css">
 <link href="../resources/css/NewPw.css" rel="stylesheet" type="text/css">
@@ -36,7 +37,7 @@
 		            data: {	      
 		            	id: id,
 		                pw: pw,
-		                pw: pw2
+		                pw2: pw2
 		                
 		            },
 		            success: function(result) {		         		              
@@ -67,9 +68,9 @@
 		
 	</script>
 	<div id="wrap">
-		 <h2>새 비밀번호 설정</h2>
 		<div id="content_wrap">
 			<div id="content">
+				<h2>새 비밀번호 설정</h2>
 			   <div id = "PwresetBox">
 					<div class="head">
 						<span class="star">*</span>입력사항

@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
-	rel="stylesheet">
+<title>가지가지 챗봇</title>
+<link rel="shortcut icon" href="../resources/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript" src="../resources/js/chatBot.js"></script>

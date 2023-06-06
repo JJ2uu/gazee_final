@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <title>Insert title here</title>
 <style type="text/css">
 table {
@@ -175,13 +176,16 @@ table {
 </style>
 <script type="text/javascript">
 $(function() {
-		let directclick = document.getElementById("directclick");
+	var sessionId = "<%=session.getAttribute("id")%>";
+	var productId = ${bag.productId};
+	
+	let directclick = document.getElementById("directclick");
 		
-		if (directclick) {
-			document.getElementById("btn_directMapRemove").addEventListener("click", function() {
-			  document.getElementById("directclick").style.visibility = "hidden";
-			});
-		}
+	if (directclick) {
+		document.getElementById("btn_directMapRemove").addEventListener("click", function() {
+			 document.getElementById("directclick").style.visibility = "hidden";
+		});
+	}
 
     $.ajax({
 		url : "imgslide",
@@ -193,45 +197,34 @@ $(function() {
 		}
 	})
 	
-	
-	    
-	  $('#productUpdate').click(function() {	
-		  var sessionId = "<%=session.getAttribute("id")%>";
-		    var productId = ${bag.productId};
-		    
-	    location.href = "../product/productUpdate.jsp?sessionId=" + sessionId + "&productId="+ productId;
-	  });
+	$('#productUpdate').click(function() {	
+		location.href = "../product/productUpdate.jsp?sessionId=" + sessionId + "&productId="+ productId;
+	});
 
 	  
-	  $('#productDelete').click(function() {
-      	var memberId = "<%=session.getAttribute("id")%>";
-      	console.log("sessionId" + memberId);
-  		console.log("productId" + ${bag.productId});
-          if (confirm('정말로 삭제하시겠습니까?')) {
-        	  $.ajax({
-                  url: 'S3ProductDelete',
-                  type: 'POST',
-                  data: {
-                	  memberId: memberId,
-                      productId: ${bag.productId}
-                  },
-                  success: function(x) {
-                	alert('삭제되었습니다.');
+	$('#productDelete').click(function() {
+		if (confirm('정말로 삭제하시겠습니까?')) {
+			$.ajax({
+				url: 'S3ProductDelete',
+				type: 'POST',
+				data: {
+ 					memberId: sessionId,
+					productId: productId
+				},
+				success: function(x) {
+					alert('삭제되었습니다.');
                     location.href = "../home/gazeeMain.jsp";
-                  }
-              });
-              
-          }
-      });
-	  
-	  $("#chatList").click(function() {
-		  var sessionId = "<%=session.getAttribute("id")%>";
-		    var productId = ${bag.productId};
-		  if (sessionId != null) {
-				location.href = "../chat/gazeeChat.jsp";
-			}
-	  });
+                }
+           });
+        }
 	});
+	  
+	$("#chatList").click(function() {
+		if (sessionId != null) {
+			location.href = "../chat/gazeeChat.jsp";
+		}
+	});
+});
 		
 	//이미지 클릭 시 모달 창 열기
 	var mapTrigger = document.getElementsByClassName("map-trigger");
@@ -239,12 +232,12 @@ $(function() {
 	var closeModal = document.getElementsByClassName("close")[0];
 	for (var i = 0; i < mapTrigger.length; i++) {
 	    mapTrigger[i].addEventListener("click", function() {
-	        mapModal.style.display = "block";
+	    mapModal.style.display = "block";
 	
-	     // 지도 크기 재조정
-	        map.relayout();
-	        var newCenter = new kakao.maps.LatLng(${bag.directAddressy}, ${bag.directAddressx});
-	        map.setCenter(newCenter);
+	    // 지도 크기 재조정
+	    map.relayout();
+	    var newCenter = new kakao.maps.LatLng(${bag.directAddressy}, ${bag.directAddressx});
+	    map.setCenter(newCenter);
 	        
 	    });
 	}

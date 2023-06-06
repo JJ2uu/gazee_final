@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<script type="text/javascript">
 	 $(function() {
 			$('#buyerCon').click(function() {
@@ -26,20 +27,24 @@
        <thead>
          <tr>
 	        <th>상품이름</th>
-	        <th>구매자</th>
+	        <th>금액</th>
 	        <th>판매자</th>
-	        <th>셀러컨필름</th>
-	        <th>현상태</th>
+	        <th>거래상태</th>
+	        <th>운송장번호</th>
+	        <th>직거래 날짜</th>
+	        <th>구매확정</th>
 	     </tr>
         </thead>
         <tbody>
-      	<c:forEach var="vo" items="${purchsList}">
-      	<p id="no" style="display: none">${vo.no}</p>	
+      	<c:forEach var="i" begin="1" end="${fn:length(list)}">
+      	<p id="no" style="display: none">${list[i-1].no}</p>
 		<tr>
-			<td>${vo.productId}</td>
-			<td>${vo.buyerId}</td>
-			<td>${vo.sellerId}</td>
-			<td>${vo.sellerConfirm}</td>
+			<td>${list2[i-1].productName}</td>
+			<td>${list2[i-1].price}</td>
+			<td>${list3[i-1].nickname}</td>
+			<td>${sellStatus[i-1]}</td>
+			<td>${list[i-1].trackingNo}</td>
+			<td>${directDate[i-1].dealDirectDate}</td>
 			<td> <button id="buyerCon" >구매확정</button></td>
 		</tr>
 		</c:forEach>

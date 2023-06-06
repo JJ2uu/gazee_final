@@ -3,7 +3,7 @@
 <%
 	String mode = request.getParameter("mode");
 	String id = (String)session.getAttribute("id");
-%>	
+%>
 <script type="text/javascript">
 $(function() {
 	/* 검색창을 이용한 검색 */

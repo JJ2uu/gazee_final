@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>가지가지</title>
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet" type="text/css">
 <link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">
@@ -67,7 +68,7 @@
 	                $('#product_table').append(res);
 	            }
 	        })
-	    } else {
+	    } else if (sessionId !== "null") {
 	        $.ajax({
 	            url: "detail", // memberId와 sessionId가 다를 때의 URL
 	            data: {
@@ -78,7 +79,19 @@
 	                $('#product_table').append(res);
 	            }
 	        });
-	    }
+	    } else {
+		    $.ajax({
+		        url: "detail_nomember", // sessionId가 null일 때의 URL
+		        data: {
+		            productId: <%=productId%>,
+		            memberId: memberId
+		        },
+		        success: function(res) {
+		        	console.log("3");
+		            $('#product_table').append(res);
+		        }
+		    });
+		}
 	    
 	});
 </script>

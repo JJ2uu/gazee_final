@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
 <link href="../resources/css/style.css" rel="stylesheet" type="text/css">
@@ -135,8 +136,7 @@
 									/* 토글 메뉴 - 신고하기 */
 									let btn_report = $("#btn_report");
 									btn_report.on('click', function() {
-										console.log('신고하기')
-										disconnect(roomId);
+										location.href = "../report/reportList?page=1&mode=1";
 									})
 									
 									/* [판매자]일 때 [판매하기] 버튼을 눌러 결제요청 */

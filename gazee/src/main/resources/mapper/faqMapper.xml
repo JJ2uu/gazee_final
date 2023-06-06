@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faq">
-	
-	<insert id="create" parameterType="FaqVO">
-		insert into faq(faq_title,faq_content,faq_category) 
-		values (#{faqTitle}, 
-				#{faqContent}, 
-				#{faqCategory})
-	</insert>
-	
-	<delete id="del"  parameterType="faqVO">
-		delete from faq where faq_id = #{faqId}
-	</delete>
-	
-	<update id="up"  parameterType="faqVO">
-		update faq set faq_title = #{faqTitle} where faq_id = #{faqId}
-	</update>
-	
+	<!-- faq 게시글 검색 -->
 	<select id="one" parameterType="Integer" resultType="faqVO">
 		select faq_id, faq_title, faq_view, faq_content, faq_category from faq
 		where faq_id =#{faqId}
 	</select>
 	
+	<!-- faq 게시글 조회수 -->
 	<update id="viewUpdate" parameterType="Integer">
 		update faq set faq_view= faq_view + 1
 		where faq_id =#{faqId}
 	</update>
 	
+	<!-- faq 게시글 목록 -->
 	<select id="faqAll" resultType="faqVO" parameterType="pageVO">
 		select * 
 		from (
@@ -36,6 +23,7 @@
 		where faq2.faq_no between #{start} and #{end}
 	</select>
 	
+	<!-- faq 게시글 카테고리별 검색 -->
 	<select id="category" parameterType="Map" resultType="faqVO">
 		select * from (
 		select ROW_NUMBER() over(order by faq_id desc)as faq_no, f.*
@@ -44,28 +32,24 @@
 		where faq2.faq_no between #{start} and #{end}
 	</select>
 	
+	<!-- faq 게시글 갯수 -->
 	<select id="count" resultType="Integer">
 		select count(*) from faq
 	</select>
 	
+	<!-- faq 게시글 카테고리별 갯수 -->
 	<select id="countCategory" parameterType="String" resultType="Integer">
 		select count(*) from faq
 		where faq_category=#{category1}
 	</select>
 	
+	<!-- faq 게시글 키워드별 갯수 -->
 	<select id="countSearch" parameterType="String" resultType="Integer">
 		select count(*) from faq
 		where faq_title like concat('%', #{search1}, '%')
 	</select>
 	
-	<select id="list2" resultType="faqVO" parameterType="pageVO">
-		select *
-		from (
-		select ROW_NUMBER() over(order by faq_id desc) as faq_no, f.*
-		from faq f) faq2
-		where faq2.faq_no between #{start} and #{end} 
-	</select>
-	
+	<!-- faq 키워드별 검색 -->
 	<select id="searchAll" resultType="faqVO"  parameterType="Map">
 		select * from (
 		select ROW_NUMBER() over(order by faq_id desc) as faq_no, f.*
@@ -74,14 +58,3 @@
 		where faq2.faq_no between #{start} and #{end}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

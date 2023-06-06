@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
 <link href="../resources/css/product-register.css" rel="stylesheet" type="text/css">
@@ -44,6 +45,7 @@
 	
 	$(function() {
 		var sessionId = "<%= session.getAttribute("id") %>";
+		var fileInput = $("#uploadForm input[type='file']")[0];
 		
 		function uploadFiles() {
 			var formData = new FormData($("#uploadForm")[0]);
@@ -118,7 +120,9 @@
 				alert("필수값을 입력해주세요.")
 			}else if(save == 1 && dealDirect==0 && dealDelivery==0){
 				alert("거래방식을 정해주세요.")
-			}
+			}else if(fileInput.files.length === 0) {
+		        alert("사진을 등록해주세요.");
+		    }
 			else{
 				$.ajax({
 					url : "register",

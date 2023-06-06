@@ -273,6 +273,32 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.14</version>
 		</dependency>
+		
+		<!-- Export XLS -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		
+		<!-- Mailing -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+		
+		<!-- Spring Utils-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0</version>
+		</dependency>
 		        
 	</dependencies>
     <build>

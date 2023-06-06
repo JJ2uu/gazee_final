@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cs">
-
-
+	<!-- qna 게시글 작성 -->
     <insert id="register" parameterType="customerServiceVO" useGeneratedKeys="true" keyProperty= "csId">
 		insert into customer_service(cs_title, cs_content, cs_writer, cs_category, temporary) 
 		values (#{csTitle}, 
@@ -12,10 +11,12 @@
 				#{temporary})
 	</insert>
 	
+	<!-- qna 게시글 삭제 -->
 	<delete id="del"  parameterType="customerServiceVO">
 		delete from customer_service where cs_id = #{csId}
 	</delete>
 	
+	<!-- qna 게시글 수정 -->
 	<update id="up"  parameterType="customerServiceVO">
 		update customer_service 
 		set 
@@ -23,16 +24,17 @@
 		where cs_id = #{csId}
 	</update>
 	
+	<!-- qna 게시글 상세 정보 -->
 	<select id="one" parameterType="Integer" resultType="customerServiceVO">
-		select * from customer_service
-		where cs_id =#{csId}
+		select * from customer_service where cs_id =#{csId}
 	</select>
 	
+	<!-- qna 게시글 조회수 -->
 	<update id="viewUpdate" parameterType="Integer">
-		update customer_service set cs_view= cs_view + 1
-		where cs_id =#{csId}
+		update customer_service set cs_view= cs_view + 1 where cs_id =#{csId}
 	</update>
 	
+	<!-- qna 게시글 목록 -->
 	<select id="all"  parameterType="pageVO" resultType="customerServiceVO">
 		select * 
 		from (
@@ -42,6 +44,7 @@
 		where (cs2.cs_no between #{start} and #{end}) 
 	</select>
 	
+	<!-- qna 게시글 카테고리별 목록 -->
 	<select id="category" parameterType="Map" resultType="customerServiceVO">
 		select * from (
 		select ROW_NUMBER() over(order by cs_id desc)as cs_no, cs.*
@@ -50,30 +53,24 @@
 		where cs2.cs_no between #{start} and #{end}
 	</select>
 	
+	<!-- qna 게시글 갯수 -->
 	<select id="count" resultType="Integer">
-		select count(*) from customer_service cs
-		where cs.temporary =1
+		select count(*) from customer_service cs where cs.temporary =1
 	</select>
 	
+	<!-- qna 카테고리 검색어 갯수 -->
 	<select id="countCategory" parameterType="String" resultType="Integer">
 		select count(*) from customer_service
 		where cs_category=#{category1} and temporary=1
 	</select>
 	
+	<!-- qna 키워드 검색어 갯수 -->
 	<select id="countSearch" parameterType="String" resultType="Integer">
 		select count(*) from customer_service
 		where cs_writer = #{search1} and temporary=1
 	</select>
 	
-	<select id="list2" resultType="customerServiceVO" parameterType="pageVO">
-		select *
-		from (
-		select ROW_NUMBER() over(order by cs_id desc) as cs_no, cs.*
-		from customer_service cs
-		where cs.temporary=1) cs2
-		where cs2.cs_no between #{start} and #{end} 
-	</select>
-	
+	<!-- qna 키워드 검색 -->
 	<select id="searchAll" resultType="customerServiceVO"  parameterType="Map">
 		select * from (
 		select ROW_NUMBER() over(order by cs_id desc) as cs_no, cs.*
@@ -82,8 +79,46 @@
 		where cs2.cs_no between #{start} and #{end}
 	</select>
 
+	<!-- 게시글 임시저장 여부 확인 -->
 	<select id="checkTemporaryCs" resultType="customerServiceVO" parameterType="customerServiceVO">
 		select * from customer_service where cs_Writer= #{csWriter} and `temporary`= 0
 	</select>
+	
+	<!-- 답변 등록 -->
+    <update id="reply" parameterType="customerServiceVO">
+        update customer_service
+        SET cs_reply = #{csReply}
+        WHERE cs_id = #{csId}
+    </update>
+    
+    <!-- 답변이 필요한 문의글 불러오기 (non페이징) -->
+    <select id="nonPagedNeedReply" resultType="customerServiceVO">
+        select *
+        from customer_service
+        WHERE cs_reply IS NULL
+    </select>
 
+    <!--  답변이 필요한 문의글 불러오기 (페이징) -->
+    <select id="pagedNeedReply" resultType="customerServiceVO" parameterType="adminPageVO">
+        SELECT *
+        FROM (SELECT ROW_NUMBER() over(ORDER BY cs_id) AS paged_cs_id, cs_id, cs_category, cs_writer, cs_title, cs_date
+              FROM customer_service cs WHERE cs_reply IS NULL) cs2
+        WHERE cs2.paged_cs_id BETWEEN #{start} AND #{end}
+    </select>
+    
+    <!-- Paged ALL -->
+    <select id="pagedList" resultType="customerServiceVO" parameterType="adminPageVO">
+        SELECT *
+        FROM (SELECT ROW_NUMBER() over(ORDER BY cs_id) AS paged_cs_id, cs_id, cs_category, cs_writer, cs_title, cs_date
+              FROM customer_service cs WHERE temporary = 1) cs2
+        WHERE cs2.paged_cs_id BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="nonPagedList" resultType="customerServiceVO">
+        select * from customer_service
+    </select>
+    
+    <select id="countPagedNeedReply" resultType="Integer">
+        SELECT count(*) FROM customer_service WHERE cs_reply IS NULL
+    </select>
 </mapper>

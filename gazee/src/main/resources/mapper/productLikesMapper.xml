@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productLikes">
-
+	<!-- 찜 클릭 -->
 	<insert id="productLikes" parameterType="ProductLikesVO">
 		insert into
 		product_likes values(null, #{productId}, #{memberId})
 	</insert>
 	
+	<!-- 찜 삭제 -->
 	<delete id="unLikes"  parameterType="ProductLikesVO">
 		delete from product_likes where product_id = #{productId} and member_id = #{memberId}
 	</delete>
@@ -15,19 +16,9 @@
 		delete from product_likes where product_id = #{productId}
 	</delete>
 	
+	<!-- 찜 여부 확인 -->
 	<select id="checkLikes" resultType="ProductLikesVO" parameterType="ProductLikesVO">
 		select * from product_likes where product_id = #{productId} and member_id = #{memberId}
 	</select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

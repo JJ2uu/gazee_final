@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link href="../resources/css/recently-viewed.css" rel="stylesheet" type="text/css">
 <link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">

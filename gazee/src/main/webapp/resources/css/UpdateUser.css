@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #updateUserBox {
-	width: 600px;
+	width: 400px;
 	margin: 0 auto 50px auto;
 	display: flex;
 	flex-flow: column;
@@ -55,24 +55,37 @@
 	cursor: pointer;
 }
 #Nick-Check-Btn {
-	width: 200px;
+	width: 71px;
 	height: 46px;
 	background: #693FAA;
 	color: #fff;
 	border-style: none;
 	border-radius: 4px;
 	cursor: pointer;
-	
+	display: flex;
+	gap: 5px;
+	align-items: center;
+    justify-content: center;
 }
-.nickBox {
+.nicknameBox {
 	width: 100%;
 	display: flex;
 	gap: 5px;
 }
 
-#IdReset {
-	width: 350px;
-	height: 46px;
+#pwReSet !important{
+	width: 100px;
+	height: 40px;
+	background: #693FAA;
+	color: #fff;
+	border-style: none;
+	border-radius: 4px;
+	margin: 20px auto;
+	cursor: pointer;
+}
+#btn_profileReset {
+	width: 100px;
+	height: 40px;
 	background: #693FAA;
 	color: #fff;
 	border-style: none;

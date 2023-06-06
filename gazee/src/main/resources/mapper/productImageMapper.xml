@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productImage">
-
+	<!-- 상품 이미지 -->
 	<select id="productImage" resultType="ProductImageVO" parameterType="Integer">
 		select * from product_image where product_id = #{productId}
 	</select>
 	
+	<!-- 상품 썸네일 -->
 	<select id="productImageThumbnail" resultType="ProductImageVO" parameterType="Integer">
 		select * from product_image where product_id = #{productId} AND product_image_order = 1
 	</select>
 
+	<!-- 상품 이미지 삭제 -->
 	<delete id="productImageDelete"  parameterType="productVO">
 		delete from product_image where product_id = #{productId}
 	</delete>
 	
+	<!-- 상품 이미지 업로드 -->
 	<insert id="productImageUpload" parameterType="ProductImageVO">
 		INSERT INTO product_image
 		(product_id, product_image_name, product_image_order)
 		VALUES(#{productId}, #{productImageName}, #{productImageOrder});
 	</insert>
-
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

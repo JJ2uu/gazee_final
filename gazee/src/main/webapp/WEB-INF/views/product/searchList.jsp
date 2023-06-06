@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>가지가지</title>
+<link rel="shortcut icon" href="../resources/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="../resources/css/gazee-main.css" rel="stylesheet" type="text/css">
 <link href="../resources/css/alarm.css" rel="stylesheet" type="text/css">
@@ -29,7 +30,6 @@
 		
 		/* 페이지 클릭시 다른 페이지로 */
 		$('.pages').click(function() {
-			alert($(this).text())
 			$.ajax({
 				url : "../product/productList",
 				data : {
@@ -74,12 +74,13 @@
 				</div>
 				<div>
 					<ul id="searchOrder">
+						<li><a href="../product/searchListOnSale?page=1&num=20&search=" style="color: #693FAA !important;">전체상품</a></li>
 						<li><a href="../product/searchListOnSale?page=1&num=20&search=${search}">판매중인 상품보기</a></li>
 					</ul>
 				</div>
 			</div>
-			<hr>
-			<div id="d1" style="height: 1170px; margin-top: 20px;">
+			<hr style="width: 100%;">
+			<div id="d1" style="margin-top: 20px;">
 			<c:forEach var="i" begin="1" end="${fn:length(list)}">
 				<div class="item">
 					<div class="itemNo" style="display: none;">${list[i-1].productId}</div>
@@ -96,7 +97,7 @@
 				</div>
 			</c:forEach>
 			</div>
-			<div style="display: flex; justify-content: center;">
+			<div style="display: flex; justify-content: center; margin: 50px 0;">
 		<%
 			int pages = (int)request.getAttribute("pages");
 			for(int p = 1; p <= pages; p++){

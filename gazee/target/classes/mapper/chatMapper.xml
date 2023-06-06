@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat">
-	
 	<!-- 채팅방 생성 -->
 	<insert id="create" parameterType="chatVO" useGeneratedKeys="true" keyProperty="roomId">
 		insert into chat values (null, #{productId}, #{sellerId}, #{buyerId}, #{dealType}, null, null);
@@ -43,16 +42,4 @@
 		INNER JOIN member m ON (seller_id = #{memberId} or buyer_id = #{memberId}) and m.id = #{memberId}
 		WHERE c.last_message_time > m.logout_time
 	</select>
-	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

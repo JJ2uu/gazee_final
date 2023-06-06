@@ -7,9 +7,8 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-	rel="stylesheet">
+<link rel="shortcut icon" href="../resources/favicon.ico">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
 .slideshow-container {
 	position: relative;
@@ -253,17 +252,14 @@ $(function() {
 	  });
 
 	   // 버튼 클릭 시 Ajax 요청
-	  $("#chatStart").click(function() {
-		  productId = productId;
-			buyerId = "<%= session.getAttribute("id") %>";
-			dealType = dealType;
-			console.log(productId)
-			console.log(buyerId)
-			console.log(dealType)
+		$("#chatStart").click(function() {
+		productId = productId;
+		buyerId = "<%= session.getAttribute("id") %>";
+		dealType = dealType;
 			
 			if (dealType.trim().length === 0) {
-						alert("거래방식을 선택해주세요");
-			}else{
+				alert("거래방식을 선택해주세요");
+			} else {
 				$.ajax({
 					url: '../chat/chatRoomCheck',
 					data: {
@@ -272,32 +268,30 @@ $(function() {
 						dealType : dealType
 					},
 					success : function(roomId) {
-						
-							/* 해당 상품에 대한 채팅방이 이미 있는 경우 */
-							if (roomId != 0) {
-								location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
-							} else {
-								/* 방이 없는 경우 */
-								$.ajax({
-									url: '../chat/chatRoomCreate',
-									data : {
-										ProductId : productId,
-										buyerId : buyerId,
-										dealType : dealType
-									}, success : function(roomId) {
-										console.log(roomId)
-										if (roomId != 0) {
-											location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
-										} else {
-											alert('실패')
-										}
+						/* 해당 상품에 대한 채팅방이 이미 있는 경우 */
+						if (roomId != 0) {
+							location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
+						} else {
+							/* 방이 없는 경우 */
+							$.ajax({
+								url: '../chat/chatRoomCreate',
+								data : {
+									ProductId : productId,
+									buyerId : buyerId,
+									dealType : dealType
+								}, success : function(roomId) {
+									if (roomId != 0) {
+										location.href = "../chat/gazeeChat.jsp?roomId="+roomId+"&dealType="+dealType;
+									} else {
+										alert('실패')
 									}
-								})
-							}
+								}
+							})
 						}
-					})
-				}
-	 	 }); 
+					}
+				})
+			}
+	 	}); 
 	});
 	
 	$(function() {
@@ -348,6 +342,9 @@ $(function() {
 				}
 			});
 		});
+		$('#reportStart').click(function() {
+			location.href = "../report/reportList?page=1&mode=1";
+		})
 	});
 	// 이미지 클릭 시 모달 창 열기
 	var mapTrigger = document.getElementsByClassName("map-trigger");
@@ -372,10 +369,8 @@ $(function() {
 	window.addEventListener("click", function(event) {
 	    if (event.target === mapModal) {
 	        mapModal.style.display = "none";
-	        
 	    }
 	});
-	
 </script>
 
 </head>
@@ -449,8 +444,8 @@ $(function() {
 				</c:if></td>
 		</tr>
 		<tr>
-			<td><%-- 원래${userProfileImg} --%>
-				<div id="seller_info"> <img src="http://zurvmfyklzsa17604146.cdn.ntruss.com/32763658-e868-4157-b65f-469a8ee2b00e_%EB%82%98.jpg?type=f&w=50&h=50" style="width: 70px; height: 70px; border-radius: 20px;">
+			<td>
+				<div id="seller_info"> <img src="http://zurvmfyklzsa17604146.cdn.ntruss.com/${userProfileImg}?type=f&w=50&h=50" style="width: 70px; height: 70px; border-radius: 20px;">
 				<div id="nickreport"> <div style="font-size: 20px; font-weight: bold;">${nickname}</div> 
 				<div style=" color: red;">신고횟수
 					${bag3.count}회</div></div>

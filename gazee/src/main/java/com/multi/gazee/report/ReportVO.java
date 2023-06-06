@@ -16,7 +16,7 @@ public class ReportVO {
 	private String reportReply;
 	private int reportSecret;
 	private int temporary;
-	
+	private String reportee;
 	
 	public int getReportId() {
 		return reportId;
@@ -90,6 +90,12 @@ public class ReportVO {
 				+ ", reportCategory=" + reportCategory + ", reportContent=" + reportContent + ", reportWriter="
 				+ reportWriter + ", reportDate=" + reportDate + ", reportView=" + reportView + ", reportReply="
 				+ reportReply + ", reportSecret=" + reportSecret + ", temporary=" + temporary + "]";
+	}
+	public String getReportee() {
+		return reportee;
+	}
+	public void setReportee(String reportee) {
+		this.reportee = reportee;
 	}
 	
 	

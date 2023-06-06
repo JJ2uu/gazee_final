@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reportImg">
+	<!-- 신고글 이미지 업로드 -->
 	<insert id="reportImgUpload" parameterType="reportImgVO">
 		insert into report_img(report_id, report_img_name, report_img_order)
 		values (#{reportId},
 		#{reportImgName},
 		#{reportImgOrder})
 	</insert>
-
+	
+	<!-- 신고글 이미지 목록 -->
 	<select id="reportImgList" resultType="reportImgVO" parameterType="Integer">
 		select * from
 		report_img
 		where report_id=#{reportId}
 	</select>
+	
+	<!-- 신고글 삭제 -->
 	<delete id="reportImgDel"  parameterType="Integer">
 		delete from report_img where report_id = #{reportId}
 	</delete>

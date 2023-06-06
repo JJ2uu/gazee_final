@@ -31,7 +31,6 @@ public class reportAWSConfiguration implements WebMvcConfigurer{
     
 	@Bean
 	public BasicAWSCredentials AwsCredentials() {
-		System.out.println(accessKey+"시크릿"+ secretKey);
 		BasicAWSCredentials AwsCreds = new BasicAWSCredentials(accessKey, secretKey);	
 		return AwsCreds;
 	}	
